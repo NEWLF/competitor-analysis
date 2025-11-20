@@ -1,0 +1,42 @@
+import { RESULT_DATA1 } from "./data1";
+import { RESULT_DATA11 } from "./data11";
+import { RESULT_DATA12 } from "./data12";
+import { RESULT_DATA2 } from "./data2";
+import { RESULT_DATA3 } from "./data3";
+import { RESULT_DATA4 } from "./data4";
+import { RESULT_DATA5 } from "./data5";
+import { RESULT_DATA6 } from "./data6";
+import { RESULT_DATA7 } from "./data7";
+import { RESULT_DATA8 } from "./data8";
+import { RESULT_DATA9 } from "./data9";
+import { RESULT_DATA10 } from "./data10";
+
+export const results = {
+  IEPA3F112B2: RESULT_DATA1,
+  IETS3F201CG: RESULT_DATA2,
+  JABA3F955N2: RESULT_DATA3,
+  JLWA3F600BK: RESULT_DATA4,
+  DCBA4E945W2: RESULT_DATA5,
+  DBWA4E975BK: RESULT_DATA6,
+  FFSO4E043WT: RESULT_DATA7,
+  IETS3E501CG: RESULT_DATA8,
+  JLBA4E545BK: RESULT_DATA9,
+  TNTS4E110E2: RESULT_DATA10,
+  HJGV3F952I2: RESULT_DATA11,
+  CHSO3F080BK: RESULT_DATA12,
+};
+
+export const counts = {
+  IEPA3F112B2: [200, 100, 100],
+  IETS3F201CG: [200, 100, 100],
+  JABA3F955N2: [200, 100, 100],
+  JLWA3F600BK: [200, 100, 100],
+  DCBA4E945W2: [100, 50, 50],
+  DBWA4E975BK: [100, 50, 50],
+  FFSO4E043WT: [100, 50, 50],
+  IETS3E501CG: [100, 50, 50],
+  JLBA4E545BK: [13, 6, 7],
+  TNTS4E110E2: [26, 13, 13],
+  HJGV3F952I2: [26, 13, 13],
+  CHSO3F080BK: [25, 20, 5],
+};

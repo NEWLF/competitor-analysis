@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "target": "esnext",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noImplicitAny": false,
+    "baseUrl": ".",
+    "paths": {
+      "abis": ["src/abis/*"],
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["src/components/*"],
+      "@/containers/*": ["src/containers/*"],
+      "hooks/*": ["src/hooks/*"],
+      "types/*": ["src/types/*"],
+      "@assets/*": ["src/assets/*"],
+      "utils/*": ["src/utils/*"],
+      "helpers": ["src/helpers/*"],
+      "constants/*": ["src/constants/*"],
+      "contracts": ["src/contracts/*"],
+      "remotes/*": ["src/remotes/*"],
+      "pages": ["src/pages/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "models": ["src/models/*"]
+    },
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx",
+    "src/containers/bibi/index.tx"
+  ],
+  "exclude": ["node_modules"]
+}
+

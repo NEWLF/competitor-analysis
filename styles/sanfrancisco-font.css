@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/104802c6c6dc7a3d84d629a79b78046847a9cc8caac8f73ea07e2dddfb5e31ce.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/7c60d03415a0dafaba510d4fe6a06ff74a049450351dc9ed1a305d0f9bff90e3.woff2")
+    format("woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/5bc1142d5fc993d2ec21a8fa93a17718818e8172dffc649b7d8a3ab459cfbf9c.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
