@@ -17,6 +17,8 @@ import {
     ColorTooltipInner,
     MainImage,
     InfoRow,
+    CreateDateText,
+    CreateDateBox,
 } from "./style";
 
 import EllipsisTooltip from "../tooltip/EllipsisTooltip";
@@ -114,15 +116,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
     return (
         <CardWrapper>
-            <HeaderText title={name}>{name}</HeaderText>
-
+            <HeaderText title={name}>[{brand}] {name}</HeaderText>
+            <CreateDateBox>
+                <CreateDateText>({createdAt})</CreateDateText>
+            </CreateDateBox>
             <ContentMask>
                 <ProductTable>
                     <tbody>
+
                     <InfoRow>
-                        <TH>브랜드</TH>
-                        <TD>{brand || "-"}</TD>
-                        <ImgBox rowSpan={6} onClick={handleOpenDetail}>
+                        <TH>정상가</TH>
+                        <TD>{renderPrice(normalPrice)}</TD>
+                        <ImgBox rowSpan={4} onClick={handleOpenDetail}>
                             <MainImage
                                 src={hoverColor || image}
                                 alt={name}
@@ -132,32 +137,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     </InfoRow>
 
                     <InfoRow>
-                        <TH>정상가</TH>
-                        <TD>{renderPrice(normalPrice)}</TD>
-                    </InfoRow>
-
-                    <InfoRow>
                         <TH>할인가</TH>
                         <TD>{renderPrice(salePrice)}</TD>
                     </InfoRow>
 
                     <InfoRow>
                         <TH>핏</TH>
-                        <TD>
-                            <EllipsisTooltip value={fit} />
-                        </TD>
+                        <TD><EllipsisTooltip value={fit} /></TD>
                     </InfoRow>
 
                     <InfoRow>
                         <TH>원산지</TH>
-                        <TD>
-                            <EllipsisTooltip value={origin} />
-                        </TD>
-                    </InfoRow>
-
-                    <InfoRow>
-                        <TH>수집일</TH>
-                        <TD>{createdAt || "-"}</TD>
+                        <TD><EllipsisTooltip value={origin} /></TD>
                     </InfoRow>
 
                     <ColorRow>

@@ -32,13 +32,20 @@ export const mockProducts = [
     // 1. Beanpole 목업
     buildProduct({
         name: "Beanpole Premium Essential Stretch Classic Long Sleeve Shirt Limited Edition",
-        image: "/images/product_demo/mock-max.jpg",
-        images: ["/images/product_demo/mock-max.jpg"],
+        image:  "/images/product_demo/379399-01.jpg",
+        images: [
+            "/images/product_demo/379399-01.jpg",
+            "/images/product_demo/379399-02.jpg",
+            "/images/product_demo/379399-03.jpg",
+            "/images/product_demo/379399-04.jpg",
+            "/images/product_demo/379399-05.jpg",
+        ],
         colors: [
-            {
-                src: "/images/product_demo/mock-max.jpg",
-                label: "프리미엄 화이트",
-            },
+            { src: "/images/product_demo/379399-01.jpg", label: "아이보리" },
+            { src: "/images/product_demo/379399-02.jpg", label: "화이트" },
+            { src: "/images/product_demo/379399-03.jpg", label: "네이비" },
+            { src: "/images/product_demo/379399-04.jpg", label: "블랙" },
+            { src: "/images/product_demo/379399-05.jpg", label: "라이트 그레이" },
         ],
         brand: "Beanpole",
         fit: "TommyHilfigerFitInformationSampleText123",
@@ -94,8 +101,8 @@ export const mockProducts = [
             { src: "/images/product_demo/379399-05.jpg", label: "라이트 그레이" },
         ],
         brand: "Polo",
-        fit: "레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 ",
-        origin: "인도네시아",
+        fit: "레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 레귤러 핏 ",
+        origin: "인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아인도네시아",
         normalPrice: "209,000",
         salePrice: "",
         sizes: "XS/KR 90 / S/KR 95 / M/KR 100 / L/KR 105 / XL/KR 110XS/KR 90 / S/KR 95 / M/KR 100 / L/KR 105 / XL/KR 110XS/KR 90 / S/KR 95 / M/KR 100 / L/KR 105 / XL/KR 110",

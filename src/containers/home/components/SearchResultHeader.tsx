@@ -1,4 +1,5 @@
 import {colors} from "@boxfoxs/bds-common";
+import { Divider } from "@boxfoxs/bds-web";
 import {inDesktop, Spacing, Text} from "@boxfoxs/bds-web";
 import styled from "@emotion/styled";
 import {format, parse} from "date-fns";
@@ -16,10 +17,11 @@ export function SearchResultHeader() {
 			<CustomerButton onClick={openStat} color={colors.gray900}>
 				EXCEL DOWN
 			</CustomerButton>
-			<Text size="xs" color={colors.gray800} center weight="extrabold">
+			<Text size="xxxs" color={colors.gray800} center weight="extrabold">
 				Last updated :{" "}
 				{lastUpdateDate?.data?.ANAL_DATE ? format(parse(lastUpdateDate?.data?.ANAL_DATE, "yyyyMMdd", new Date()), "yyyy.MM.dd") : ""}
 			</Text>
+
 		</Container>
 	);
 }
@@ -33,17 +35,17 @@ const Container = styled.div`
   align-items: center;
   gap: 4px;
   ${inDesktop(`
-    height: 80px;
+  	padding: 15px 20px;
     flex-direction: row;
-    padding-bottom: 0px;
   `)}
 `;
 
 const CustomerButton = styled.button`
 	background: ${colors.gray900};
-	padding: 8px 16px;
+	padding: 6px 13px;
 	margin-right: 10px;
 	border-radius: 4px;
+	font-size: 11px;
 	color: ${colors.white};
 	${pressableStyle.opacity()};
 `;

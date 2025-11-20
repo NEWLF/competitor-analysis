@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 
 export const CardWrapper = styled.div`
-    max-width: 350px;
+    max-width: 380px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background: #fff;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 `;
 
 export const HeaderText = styled.div`
@@ -16,6 +15,16 @@ export const HeaderText = styled.div`
     font-weight: 600;
     color: #4b5563;
     word-break: break-all;
+`;
+
+export const CreateDateBox = styled.div`
+    position: relative;
+`;
+export const CreateDateText = styled.div`
+    font-size: 9px;
+    position: absolute;
+    right: 4px;
+    top: 4px;
 `;
 
 export const ContentMask = styled.div`
@@ -42,7 +51,7 @@ export const ProductTable = styled.table`
 `;
 
 export const InfoRow = styled.tr`
-  height: 32px;
+  height: 42px;
 `;
 
 export const ColorRow = styled.tr`
@@ -50,15 +59,13 @@ export const ColorRow = styled.tr`
 `;
 
 export const ScrollRow = styled.tr`
-    height: 45px;
+    height: 60px;
 `;
 
 export const TH = styled.th`
     width: 20%;
     padding: 6px 10px;
-    font-size: 11px;
     text-align: center;
-    font-weight: 500;
     color: #4b5563;
     background-color: #f3f4f6;
     border-bottom: 1px solid #e5e7eb;
@@ -68,7 +75,6 @@ export const TH = styled.th`
 
 export const TD = styled.td`
     padding: 6px 10px;
-    font-size: 11px;
     color: #111827;
     vertical-align: middle;
     border-bottom: 1px solid #e5e7eb;
@@ -76,8 +82,8 @@ export const TD = styled.td`
 `;
 
 export const ImgBox = styled.td`
-    width: 45%;
-    padding: 15px 0;
+    width: 40%;
+    padding: 8px 0;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
@@ -138,7 +144,7 @@ export const ColorImg = styled.img`
 
 export const ColorTooltip = styled.div`
   position: absolute;
-  left: 73%;
+  left: 77%;
   bottom: calc(100% + 20px);
   transform: translateX(-50%);
   z-index: 50;

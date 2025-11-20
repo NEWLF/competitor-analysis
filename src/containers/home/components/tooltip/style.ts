@@ -48,7 +48,7 @@ export const TooltipContent = styled.div`
     line-height: 1.4;
     z-index: 1000;
 
-    max-width: 320px;
+    max-width: 200px;
     width: max-content;
     white-space: normal;
 
