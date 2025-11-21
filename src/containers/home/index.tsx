@@ -59,30 +59,30 @@ export const GridWrapper = styled.div`
     display: grid;
     gap: 15px;
     padding: 15px 0 40px 0 ;
-    grid-template-columns: repeat(7, 380px);
+    grid-template-columns: repeat(7, 350px);
     justify-content: center;
     width: 100%;
     margin: 0 auto;
     align-items: start;
 
-    @media (max-width: calc(380px * 7 + 24px * 6)) {
-        grid-template-columns: repeat(6, 380px);
+    @media (max-width: calc(350px * 7 + 24px * 6)) {
+        grid-template-columns: repeat(6, 350px);
     }
 
-    @media (max-width: calc(380px * 6 + 24px * 5)) {
-        grid-template-columns: repeat(5, 380px);
+    @media (max-width: calc(350px * 6 + 24px * 5)) {
+        grid-template-columns: repeat(5, 350px);
     }
 
-    @media (max-width: calc(380px * 5 + 24px * 4)) {
-        grid-template-columns: repeat(4, 380px);
+    @media (max-width: calc(350px * 5 + 24px * 4)) {
+        grid-template-columns: repeat(4, 350px);
     }
 
-    @media (max-width: calc(380px * 4 + 24px * 3)) {
-        grid-template-columns: repeat(3, 380px);
+    @media (max-width: calc(350px * 4 + 24px * 3)) {
+        grid-template-columns: repeat(3, 350px);
     }
 
-    @media (max-width: calc(380px * 3 + 24px * 2)) {
-        grid-template-columns: repeat(2, 380px);
+    @media (max-width: calc(350px * 3 + 24px * 2)) {
+        grid-template-columns: repeat(2, 350px);
     }
 `;
 

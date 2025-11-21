@@ -40,6 +40,7 @@ export interface ProductCardProps {
     normalPrice?: string | number;
     salePrice?: string | number | null;
     createdAt?: string;
+    category?: string;
     sizes?: React.ReactNode;
     material?: React.ReactNode;
     mixRate?: React.ReactNode;
@@ -52,6 +53,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                                                             colors = [],
                                                             brand,
                                                             fit,
+                                                            category,
                                                             origin,
                                                             normalPrice,
                                                             salePrice,
@@ -125,9 +127,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     <tbody>
 
                     <InfoRow>
-                        <TH>정상가</TH>
-                        <TD>{renderPrice(normalPrice)}</TD>
-                        <ImgBox rowSpan={4} onClick={handleOpenDetail}>
+                        <TH>카테고리</TH>
+                        <TD><EllipsisTooltip value={category}/></TD>
+
+                        {/*<ImgBox rowSpan={5} onClick={handleOpenDetail}>*/}
+                        <ImgBox rowSpan={5}>
                             <MainImage
                                 src={hoverColor || image}
                                 alt={name}
@@ -135,7 +139,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                             />
                         </ImgBox>
                     </InfoRow>
-
+                    <InfoRow>
+                        <TH>정상가</TH>
+                        <TD>{renderPrice(normalPrice)}</TD>
+                    </InfoRow>
                     <InfoRow>
                         <TH>할인가</TH>
                         <TD>{renderPrice(salePrice)}</TD>
@@ -181,7 +188,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                                                 onMouseEnter={() =>
                                                     handleColorEnter(colorItem, index)
                                                 }
-                                                onClick={handleOpenDetail}
+                                                // onClick={handleOpenDetail}
                                             />
                                         );
                                     })}
