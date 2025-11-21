@@ -1,4 +1,4 @@
-import {Divider, Spacing} from "@boxfoxs/bds-web";
+import {Divider} from "@boxfoxs/bds-web";
 import styled from "@emotion/styled";
 import { Header } from "../../components/header";
 import { SearchBar } from "./components/search-bar";
@@ -32,6 +32,8 @@ type CompetitorProductRaw = {
     OUTER_IMG_CNT?: number | null;
     ST_RNK?: number | null;
 };
+
+const PAGE_SIZE = 20;
 
 function HomePage() {
     const { data, isLoading, error } = useCompetitorProductList();
@@ -126,6 +128,23 @@ function HomePage() {
         });
     }, [data]);
 
+    const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);
+
+    const visibleProducts = React.useMemo(
+        () => products.slice(0, visibleCount),
+        [products, visibleCount]
+    );
+
+    React.useEffect(() => {
+        setVisibleCount(PAGE_SIZE);
+    }, [products]);
+
+    const handleLoadMore = () => {
+        setVisibleCount((prev) =>
+            Math.min(prev + PAGE_SIZE, products.length)
+        );
+    };
+
     return (
         <div>
             <Header steps={["9.1 경쟁사 상품분석", "경쟁사 상품 구성 현황 대시보드(26SS~)"]} />
@@ -133,17 +152,35 @@ function HomePage() {
             <SearchResultHeader />
             <Container>
                 <Divider height={1} width="100%" color={"rgb(204, 204, 204)"} />
-                <GridWrapper>
-                    {products.map((product) => (
-                        <ProductCard
-                            key={
-                                product.productCode ??
-                                (product.brand ? product.brand + "_" + product.name : product.name)
-                            }
-                            {...product}
-                        />
-                    ))}
-                </GridWrapper>
+
+                {isLoading && <StatusText>로딩 중...</StatusText>}
+                {error && <StatusText>데이터 조회 중 오류가 발생했습니다.</StatusText>}
+
+                {!isLoading && !error && (
+                    <>
+                        <GridWrapper>
+                            {visibleProducts.map((product) => (
+                                <ProductCard
+                                    key={
+                                        product.productCode ??
+                                        (product.brand
+                                            ? product.brand + "_" + product.name
+                                            : product.name)
+                                    }
+                                    {...product}
+                                />
+                            ))}
+                        </GridWrapper>
+
+                        {visibleCount < products.length && (
+                            <MoreButtonWrapper>
+                                <MoreButton type="button" onClick={handleLoadMore}>
+                                    더보기 ({visibleCount}/{products.length})
+                                </MoreButton>
+                            </MoreButtonWrapper>
+                        )}
+                    </>
+                )}
             </Container>
             <ScrollToTopButton />
         </div>
@@ -154,6 +191,7 @@ const Container = styled.div`
     width: 100%;
     padding: 0 20px;
 `;
+
 export const GridWrapper = styled.div`
     display: grid;
     gap: 15px;
@@ -183,6 +221,52 @@ export const GridWrapper = styled.div`
     @media (max-width: calc(350px * 3 + 24px * 2)) {
         grid-template-columns: repeat(2, 350px);
     }
+`;
+
+const MoreButtonWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    padding: 8px 0 40px;
+`;
+
+const MoreButton = styled.button`
+    min-width: 160px;
+    height: 40px;
+    padding: 0 24px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+        background: #f5f5f5;      
+        border-color: #999;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        box-shadow: none;
+        transform: none;
+    }
+`;
+
+
+const StatusText = styled.div`
+    padding: 16px 0;
+    text-align: center;
+    font-size: 14px;
 `;
 
 export default withAuth(HomePage);
