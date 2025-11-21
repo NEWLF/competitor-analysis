@@ -11,8 +11,10 @@ import { useChromeNoticeModal } from "./components/notice/ChromeModal";
 
 import { ProductCard } from "./components/product-card/ProductCard";
 import { mockProducts } from "./data/mockProducts";
+import { useCompetitorProductList } from "./hooks";
 
 function HomePage() {
+    const { data, isLoading, error } = useCompetitorProductList();
     const openChromeModal = useChromeNoticeModal();
 
     React.useEffect(() => {

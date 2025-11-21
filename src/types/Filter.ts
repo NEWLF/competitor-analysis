@@ -1,16 +1,11 @@
 export interface Filter {
-  기준월: { year: number; month: number };
-  조직: string;
-  품목: string[] | "ALL";
-  자사제휴몰: string[] | "ALL";
-  정상재생산: string[] | "ALL";
-  제품년도: number;
-  시즌: string[] | "ALL";
-  단위: string;
-  STCL?: string;
-  키워드?: string;
-  order: Order;
-  liveSTCL: string;
+  시작년월일: { year: number, month: number, day: number };
+  종료년월일: { year: number, month: number, day: number };
+  조직코드: string;
+  경장사브랜드: string[];
+  카테고리: string;
+  소재: string;
+  상품명: string;
 }
 
 export type Order =
