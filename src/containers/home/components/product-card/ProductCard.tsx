@@ -47,21 +47,21 @@ export interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
-                                                            name,
-                                                            image,
-                                                            detailUrl,
-                                                            colors = [],
-                                                            brand,
-                                                            fit,
-                                                            category,
-                                                            origin,
-                                                            normalPrice,
-                                                            salePrice,
-                                                            createdAt,
-                                                            sizes,
-                                                            material,
-                                                            mixRate,
-                                                        }) => {
+        name,
+        image,
+        detailUrl,
+        colors = [],
+        brand,
+        fit,
+        category,
+        origin,
+        normalPrice,
+        salePrice,
+        createdAt,
+        sizes,
+        material,
+        mixRate,
+    }) => {
     const [hoverColor, setHoverColor] = useState<string | null>(null);
     const [hoveredColorInfo, setHoveredColorInfo] = useState<{
         label: string;
@@ -120,7 +120,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <CardWrapper>
             <HeaderText title={name}>[{brand}] {name}</HeaderText>
             <CreateDateBox>
-                <CreateDateText>({createdAt})</CreateDateText>
+                <CreateDateText>(수집일 : {createdAt})</CreateDateText>
             </CreateDateBox>
             <ContentMask>
                 <ProductTable>

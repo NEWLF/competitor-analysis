@@ -21,7 +21,7 @@ export const CreateDateBox = styled.div`
     position: relative;
 `;
 export const CreateDateText = styled.div`
-    font-size: 9px;
+    font-size: 11px;
     position: absolute;
     right: 4px;
     top: 4px;
@@ -138,7 +138,7 @@ export const ColorImg = styled.img`
 
   &:hover {
     border: 1px solid #bbb;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   }
 `;
 
@@ -156,7 +156,7 @@ export const ColorTooltipInner = styled.div`
   align-items: center;
   justify-content: center;
   padding: 4px 6px;
-  font-size: 8px;
+  font-size: 11px;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
