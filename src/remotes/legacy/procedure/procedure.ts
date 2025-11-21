@@ -11,25 +11,19 @@ export async function executeProcedure<T = any>(procedure, payload: Payload) {
     procedure,
     payload: [
       {
-        FROM_YM: `${payload.시작년월일.year}${String(payload.시작년월일.month).padStart(
-          2,
-          "0"
-        )}${String(payload.시작년월일.day).padStart(
+        FROM_YM: `${payload.시작년월.year}${String(payload.시작년월.month).padStart(
           2,
           "0"
         )}`,
-        TO_YM: `${payload.시작년월일.year}${String(payload.시작년월일.month).padStart(
-          2,
-          "0"
-        )}${String(payload.시작년월일.day).padStart(
+        TO_YM: `${payload.종료년월.year}${String(payload.종료년월.month).padStart(
           2,
           "0"
         )}`,
         ORG_CODE: payload.조직코드,
         COMPE_CODE: payload.경장사브랜드,
-        // CATRGORT: payload.카테고리,
-        // MATERIAL_NAME: payload.소재,
-        // PROD_NAME: payload.상품명,
+        CATRGORT: payload.카테고리,
+        MATERIAL_NAME: payload.소재,
+        PROD_NAME: payload.상품명,
       },
       "Y",
     ],

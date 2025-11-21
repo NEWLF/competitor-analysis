@@ -1,6 +1,6 @@
 export interface Filter {
-  시작년월일: { year: number, month: number, day: number };
-  종료년월일: { year: number, month: number, day: number };
+  시작년월: { year: number, month: number };
+  종료년월: { year: number, month: number };
   조직코드: string;
   경장사브랜드: string[];
   카테고리: string;
