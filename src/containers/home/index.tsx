@@ -234,34 +234,16 @@ const MoreButton = styled.button`
     height: 40px;
     padding: 0 24px;
     border-radius: 20px;
-    border: 1px solid #ccc;
-    background: #ffffff;
+    background: #000;
+    color: #fff;
     cursor: pointer;
     font-size: 14px;
 
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
-    box-shadow 0.2s ease, transform 0.1s ease;
-
     &:hover {
-        background: #f5f5f5;      
-        border-color: #999;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-        transform: translateY(-1px);
-    }
-
-    &:active {
-        transform: translateY(0);
-        box-shadow: none;
-    }
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.6;
-        box-shadow: none;
-        transform: none;
+        background: #7c7c7c;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.24);
     }
 `;
-
 
 const StatusText = styled.div`
     padding: 16px 0;
