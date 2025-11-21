@@ -17,7 +17,7 @@ export function SearchResultHeader() {
 			<CustomerButton onClick={openStat} color={colors.gray900}>
 				EXCEL DOWN
 			</CustomerButton>
-			<Text size="xxxs" color={colors.gray800} center weight="extrabold">
+			<Text size="xxs" color={colors.gray800} center weight="extrabold">
 				Last updated :{" "}
 				{lastUpdateDate?.data?.ANAL_DATE ? format(parse(lastUpdateDate?.data?.ANAL_DATE, "yyyyMMdd", new Date()), "yyyy.MM.dd") : ""}
 			</Text>

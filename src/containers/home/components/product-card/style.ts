@@ -39,7 +39,7 @@ export const ProductTable = styled.table`
     border-collapse: collapse;
     table-layout: fixed;
     font-size: 12px;
-    border-top: 1px solid #e5e7eb ;
+    border-top: 1px solid #ccc ;
 
     tbody tr > *:last-child {
         border-right: none;
@@ -68,7 +68,7 @@ export const TH = styled.th`
     text-align: center;
     color: #4b5563;
     background-color: #f3f4f6;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #ccc;
     vertical-align: middle;
     white-space: nowrap;
 `;
@@ -77,7 +77,7 @@ export const TD = styled.td`
     padding: 6px 10px;
     color: #111827;
     vertical-align: middle;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #ccc;
     word-break: break-all;
 `;
 
@@ -87,8 +87,8 @@ export const ImgBox = styled.td`
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
-    border-left: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 `;
 
 export const MainImage = styled.img`
@@ -133,7 +133,7 @@ export const ColorImg = styled.img`
   border-radius: 4px;
   object-fit: cover;
   transition: box-shadow 0.15s ease, border-color 0.15s ease;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #ccc;
   cursor: pointer;
 
   &:hover {
