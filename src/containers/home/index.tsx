@@ -105,8 +105,7 @@ function HomePage() {
                     label: `컬러 ${it.IMG_RNK}`,
                 }));
 
-            const createdAt =
-                main.MIN_CALDAY && main.MIN_CALDAY.length === 8 ? format(parse(main.MIN_CALDAY, "yyyyMMdd", new Date()), "yyyy.MM.dd") : "";
+            const createdAt = main.MIN_CALDAY && main.MIN_CALDAY.length === 8 ? format(parse(main.MIN_CALDAY, "yyyyMMdd", new Date()), "yyyy.MM.dd") : "";
 
             return {
                 name: main.PROD_ST_NAME,
@@ -114,7 +113,6 @@ function HomePage() {
                 detailUrl: main.COMPE_SITE_URL,
                 colors,
                 brand: main.COMPE_BRAND_NAME,
-                productCode: main.COMPE_ST_CODE,
                 fit: main.FIT_INFO ?? undefined,
                 origin: main.ORIGIN_INFO ?? undefined,
                 normalPrice: main.ORIGINAL_PRICE ?? undefined,
@@ -161,12 +159,7 @@ function HomePage() {
                         <GridWrapper>
                             {visibleProducts.map((product) => (
                                 <ProductCard
-                                    key={
-                                        product.productCode ??
-                                        (product.brand
-                                            ? product.brand + "_" + product.name
-                                            : product.name)
-                                    }
+                                    key={product.brand ? `${product.brand}_${product.name}` : product.name}
                                     {...product}
                                 />
                             ))}

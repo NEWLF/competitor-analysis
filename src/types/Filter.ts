@@ -1,8 +1,8 @@
 export interface Filter {
   시작년월: { year: number, month: number };
   종료년월: { year: number, month: number };
-  조직코드: string;
-  경장사브랜드: string[];
+  조직: string;
+  경쟁사브랜드: string[] | "ALL";
   카테고리: string;
   소재: string;
   상품명: string;

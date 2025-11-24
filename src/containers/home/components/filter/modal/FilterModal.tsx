@@ -6,15 +6,13 @@ import { withProps } from "@/components/hocs";
 import { Menu } from "./menu";
 import { useFilter, useTmpFilter } from "@/containers/home/hooks";
 import { useState } from "react";
-import { NormalPicker } from "../mall-type-picker";
 import { OrganizationPicker } from "../organization";
-import { ProductTypeSelector } from "../product-type-picker/ProductTypeSelector";
-import { SeasonPicker } from "../season-picker";
 import { YearMonthPicker } from "../year-month-picker";
 import { FilterResultSection } from "./FilterResultSection";
 import { ModalHeader } from "./ModalHeader";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { pressableStyle } from "utils/style";
+import {NormalPicker} from "@/containers/home/components/filter/mall-type-picker";
 
 interface Props {
   defaultTab?: string;
@@ -23,14 +21,24 @@ interface Props {
 }
 
 const MENU_ITEMS = {
-  기준월: ({
+  시작년월: ({
     controls: [filter, put],
   }: {
     controls: ReturnType<typeof useFilter>;
   }) => (
     <YearMonthPicker
-      value={filter.기준월}
-      onChange={(기준월) => put({ 기준월 })}
+      value={filter.시작년월}
+      onChange={(시작년월) => put({ 시작년월 })}
+    />
+  ),
+  종료년월: ({
+    controls: [filter, put],
+  }: {
+    controls: ReturnType<typeof useFilter>;
+  }) => (
+    <YearMonthPicker
+      value={filter.종료년월}
+      onChange={(종료년월) => put({ 종료년월 })}
     />
   ),
   조직: ({
@@ -43,47 +51,14 @@ const MENU_ITEMS = {
       onChange={(조직) => put({ 조직 })}
     />
   ),
-  품목: ({
-    controls: [filter, put],
-  }: {
+  ["경쟁사브랜드"]: ({
+       controls: [filter, put],
+     }: {
     controls: ReturnType<typeof useFilter>;
   }) => (
-    <ProductTypeSelector
-      value={filter.품목}
-      onChange={(품목) => put({ 품목 })}
-    />
-  ),
-  // ["자사/제휴"]: ({
-  //   controls: [filter, put],
-  // }: {
-  //   controls: ReturnType<typeof useFilterState>;
-  // }) => (
-  //   <MallTypePicker
-  //     value={filter.자사제휴몰}
-  //     onChange={(자사제휴몰) => put({ 자사제휴몰 })}
-  //   />
-  // ),
-  ["정상/재생산"]: ({
-    controls: [filter, put],
-  }: {
-    controls: ReturnType<typeof useFilter>;
-  }) => (
-    <NormalPicker
-      value={filter.정상재생산}
-      onChange={(정상재생산) => put({ 정상재생산 })}
-    />
-  ),
-  ["제품년도/시즌"]: ({
-    controls: [filter, put],
-  }: {
-    controls: ReturnType<typeof useFilter>;
-  }) => (
-    <SeasonPicker
-      제품년도={filter.제품년도}
-      on제품년도Change={(제품년도) => put({ 제품년도 })}
-      시즌={filter.시즌}
-      on시즌Change={(시즌) => put({ 시즌 })}
-    />
+      <NormalPicker
+          value={filter.경쟁사브랜드}
+          onChange={(경쟁사브랜드) => put({경쟁사브랜드})}/>
   ),
 };
 
@@ -91,7 +66,7 @@ export function FilterModal({ defaultTab, onClose }: Props) {
   const [, setFilter] = useFilter();
   const controls = useTmpFilter();
   const [filter] = controls;
-  const [menu, setMenu] = useState(defaultTab || "기준월");
+  const [menu, setMenu] = useState(defaultTab || "시작년월");
   const isMobile = useCheckIsMobile();
 
   const Content = MENU_ITEMS[menu];
@@ -158,7 +133,7 @@ const StyledSearchButton = styled.button`
   padding: 12px 12px;
   width: 100%;
   margin-top: 12px;
-  ${pressableStyle.opacity()}}
+  ${pressableStyle.opacity()}
 `;
 
 const StyledModal = withProps(Modal, {

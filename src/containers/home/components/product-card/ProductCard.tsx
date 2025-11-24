@@ -34,7 +34,6 @@ export interface ProductCardProps {
     detailUrl: string;
     colors?: (string | ColorItem)[];
     brand?: string;
-    productCode?: string; // 호환용, 아직 미사용
     fit?: string;
     origin?: string;
     normalPrice?: string | number;

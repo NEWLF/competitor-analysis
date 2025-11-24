@@ -10,7 +10,7 @@ export async function fetchCompetitorProductList(filter: Filter) {
 }
 
 export interface CompetitorProduct {
-  CALMONTH: string;                // 기준월
+  CALMONTH: string;                // 시작년월
   COMPE_ST_CODE: string;           // 경쟁사 ST 코드
   PROD_ST_NAME: string;            // 상품명
   COMPE_BRAND_NAME: string;        // 브랜드

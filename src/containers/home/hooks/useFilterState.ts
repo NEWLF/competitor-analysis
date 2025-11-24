@@ -10,16 +10,13 @@ const month = day === 1 ? (now_month - 1 === 0 ? 12 : now_month - 1) : now_month
 const year = new Date().getFullYear();
 
 const DEFAULT_FILTER_STATE: Filter = {
-  기준월: { year, month },
+  시작년월: { year, month },
+  종료년월: { year, month },
   조직: "G1_BPU03",
-  품목: "ALL",
-  자사제휴몰: "ALL",
-  정상재생산: "ALL",
-  제품년도: month <= 2 ? year - 1 : year,
-  시즌: [3, 4, 5, 6, 7, 8].includes(month) ? ["A", "B", "E"] : ["C", "D", "F"],
-  단위: "1000000",
-  order: "REP_SCORE_DESC",
-  liveSTCL: "N",
+  경쟁사브랜드: "ALL",
+  카테고리: "",
+  소재: "",
+  상품명: "",
 };
 
 /** 🔥 atom들은 가장 위에서 최초 1회만 평가되도록 배치 */
@@ -41,7 +38,6 @@ export function useFilterState(
   const dispatch = useCallback(
       (state: Partial<Filter>) => {
         update((prev) => {
-          if (state.시즌?.length === 0) state.시즌 = ["A"];
 
           const newState = { ...prev, ...state };
 
@@ -50,8 +46,6 @@ export function useFilterState(
           } else if (isNoSeasonYear(prev.조직) && prev.조직 !== newState.조직) {
             return {
               ...newState,
-              제품년도: DEFAULT_FILTER_STATE.제품년도,
-              시즌: DEFAULT_FILTER_STATE.시즌,
             };
           }
 

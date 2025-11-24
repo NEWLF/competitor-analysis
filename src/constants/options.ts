@@ -8,9 +8,10 @@ export const MALL_LIST = [
 
 export const NORMAL_LIST = [
   { label: "전체", id: "ALL" },
-  { label: "정상", id: "10" },
-  { label: "순이월", id: "20" },
-  { label: "재생산", id: "25" },
+  { label: "빈폴", id: "BP" },
+  { label: "타미", id: "TM" },
+  { label: "랄프로렌", id: "RL" },
+  { label: "라코스테", id: "LC" },
 ];
 
 export const liveSTCL = [

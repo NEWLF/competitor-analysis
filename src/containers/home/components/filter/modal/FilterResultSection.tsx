@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Badge } from "antd";
-import { liveSTCL, MALL_LIST, NORMAL_LIST, SEASONS } from "constants/options";
+import { NORMAL_LIST } from "constants/options";
 import { useDetailOrgs } from "hooks/useDetailOrgs";
 import { useItems } from "hooks/useItems";
 import { DetailOrg, Item } from "remotes/legacy";
@@ -18,87 +18,41 @@ export function FilterResultSection({ value, onMenuClick }: Props) {
 
   return (
     <Container>
-      <ResultCell onClick={() => onMenuClick("기준월")}>
-        {get기준월Label(value)}
-      </ResultCell>
-      <ResultCell onClick={() => onMenuClick("조직")}>
-        {get조직Label(value, orgs.data)}
-      </ResultCell>
-      <ResultCell
-        count={getOptionCount(value.품목)}
-        onClick={() => onMenuClick("품목")}
-      >
-        {get품목Label(value, items.data)}
-      </ResultCell>
-      {/* <ResultCell
-        count={getOptionCount(value.자사제휴몰)}
-        onClick={() => onMenuClick("자사제휴몰")}
-      >
-        {get자사제휴몰Label(value)}
-      </ResultCell> */}
-      <ResultCell
-        count={getOptionCount(value.정상재생산)}
-        onClick={() => onMenuClick("정상/재생산")}
-      >
-        {get정상재생산Label(value)}
-      </ResultCell>      <ResultCell
-        count={getOptionCount(value.정상재생산)}
-        onClick={() => onMenuClick("정상/재생산")}
-      >
-        {get정상재생산Label(value)}
-      </ResultCell>
-
-      <ResultCell
-        count={getOptionCount(value.시즌)}
-        onClick={() => onMenuClick("제품년도/시즌")}
-      >
-        {get제품년도(value)}
-      </ResultCell>
+        <ResultCell onClick={() => onMenuClick("시작년월")}>
+            {get시작년월Label(value)}
+        </ResultCell>
+        <ResultCell onClick={() => onMenuClick("종료년월")}>
+            {get종료년월Label(value)}
+        </ResultCell>
+        <ResultCell onClick={() => onMenuClick("조직")}>
+            {get조직Label(value, orgs.data)}
+        </ResultCell>
+        <ResultCell count={getOptionCount(value.경쟁사브랜드)} onClick={() => onMenuClick("경쟁사브랜드")}>
+            {get경쟁사브랜드Label(value)}
+        </ResultCell>
     </Container>
   );
 }
 
-export function get기준월Label(value: Filter) {
-  return `${value.기준월.year}/${value.기준월.month
+export function get시작년월Label(value: Filter) {
+  return `${value.시작년월.year}/${value.시작년월.month
     .toString()
     .padStart(2, "0")}`;
 }
 
+export function get종료년월Label(value: Filter) {
+    return `${value.종료년월.year}/${value.종료년월.month
+        .toString()
+        .padStart(2, "0")}`;
+}
+
 export function get조직Label(value: Filter, orgs: DetailOrg[]) {
-  return value.조직 === "ALL"
-    ? "전체"
-    : orgs?.find((i) => i.ORG4_CODE === value.조직).name || "";
+    return value.조직 === "ALL" ? "전체" : orgs?.find((i) => i.ORG4_CODE === value.조직).name || "";
 }
 
-export function get품목Label(value: Filter, items: Item[]) {
-  return value.품목 === "ALL"
-    ? "전체"
-    : items?.find((i) => value.품목.includes(i.id))?.name || "";
-}
+export function get경쟁사브랜드Label(value: Filter) {
 
-export function get자사제휴몰Label(value: Filter) {
-  return value.자사제휴몰 === "ALL"
-    ? "전체"
-    : MALL_LIST.find((i) => value.자사제휴몰.includes(i.id))?.label;
-}
-
-export function get정상재생산Label(value: Filter) {
-  return value.정상재생산 === "ALL"
-    ? "전체"
-    : NORMAL_LIST.find((i) => value.정상재생산.includes(i.id))?.label || "";
-}
-export function get제품년도(value: Filter) {
-  return `[ ${value.제품년도} ]${
-    value.시즌 === "ALL"
-      ? ""
-      : ` [ ${
-          SEASONS.find((i) => value.시즌.includes(i.id))?.label || "-"
-        }${getCountLabel(value.시즌)} ]`
-  }`;
-}
-
-export function getLiveSTCL(value: Filter) {
-  return `${liveSTCL.find((i) => value.liveSTCL.includes(i.id))?.label}`;
+    return value.경쟁사브랜드 === "ALL" ? "전체" : NORMAL_LIST?.find((i) =>  i.id === value.경쟁사브랜드[0])?.label || "";
 }
 
 export function getCountLabel<T>(value: T[] | "ALL") {
