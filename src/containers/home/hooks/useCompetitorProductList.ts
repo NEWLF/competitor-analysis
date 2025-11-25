@@ -8,7 +8,7 @@ export function useCompetitorProductList() {
     시작년월: { year: 2022, month: 1},
     종료년월: { year: 2025, month: 11 },
     조직코드: "G1_BPU03",
-    경장사브랜드: ["BP", "LC", "RL", "TM"],                              
+    경장사브랜드: ["BP"],                              
     카테고리: "",
     소재: "",
     상품명: ""

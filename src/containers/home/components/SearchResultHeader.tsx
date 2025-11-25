@@ -1,29 +1,43 @@
-import {colors} from "@boxfoxs/bds-common";
-import { Divider } from "@boxfoxs/bds-web";
-import {inDesktop, Spacing, Text} from "@boxfoxs/bds-web";
+import { colors } from "@boxfoxs/bds-common";
+import { inDesktop, Spacing, Text } from "@boxfoxs/bds-web";
 import styled from "@emotion/styled";
-import {format, parse} from "date-fns";
-import {useLastUpdateDate} from "hooks/useStatistics";
-import {pressableStyle} from "utils/style";
-import {useCustomerStatTable} from "./customer-stat";
+import { format, parse } from "date-fns";
+import { useLastUpdateDate } from "hooks/useStatistics";
+import { pressableStyle } from "utils/style";
 
-export function SearchResultHeader() {
-	const lastUpdateDate = useLastUpdateDate();
-	const openStat = useCustomerStatTable();
+export function SearchResultHeader({
+  onClickExportExcel,
+  isLoading,
+}: {
+  onClickExportExcel: () => void;
+  isLoading?: boolean;
+}) {
+  const lastUpdateDate = useLastUpdateDate();
 
-	return (
-		<Container>
-			<Spacing flex={2}/>
-			<CustomerButton onClick={openStat} color={colors.gray900}>
-				EXCEL DOWN
-			</CustomerButton>
-			<Text size="xxs" color={colors.gray800} center weight="extrabold">
-				Last updated :{" "}
-				{lastUpdateDate?.data?.ANAL_DATE ? format(parse(lastUpdateDate?.data?.ANAL_DATE, "yyyyMMdd", new Date()), "yyyy.MM.dd") : ""}
-			</Text>
-
-		</Container>
-	);
+  return (
+    <Container>
+      <Spacing flex={2} />
+      <CustomerButton
+        onClick={onClickExportExcel}
+        color={colors.gray900}
+        disabled={isLoading}
+      >
+        <ButtonContent>
+          {isLoading && <Spinner />}
+          EXCEL DOWN
+        </ButtonContent>
+      </CustomerButton>
+      <Text size="xxs" color={colors.gray800} center weight="extrabold">
+        Last updated :{" "}
+        {lastUpdateDate?.data?.ANAL_DATE
+          ? format(
+              parse(lastUpdateDate?.data?.ANAL_DATE, "yyyyMMdd", new Date()),
+              "yyyy.MM.dd"
+            )
+          : ""}
+      </Text>
+    </Container>
+  );
 }
 
 const Container = styled.div`
@@ -41,13 +55,42 @@ const Container = styled.div`
 `;
 
 const CustomerButton = styled.button`
-	background: ${colors.gray900};
-	padding: 6px 13px;
-	margin-right: 10px;
-	border-radius: 4px;
-	font-size: 11px;
-	color: ${colors.white};
-	${pressableStyle.opacity()};
+  background: ${colors.gray900};
+  padding: 6px 13px;
+  margin-right: 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: ${colors.white};
+  ${pressableStyle.opacity()};
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:disabled:active {
+    opacity: 0.6;
+  }
 `;
 
+const ButtonContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
 
+const Spinner = styled.div`
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: ${colors.white};
+  animation: spin 0.8s linear infinite;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
