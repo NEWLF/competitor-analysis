@@ -45,8 +45,8 @@ export const MoreButtonWrapper = styled.div`
 export const MoreButton = styled.button`
     min-width: 160px;
     height: 40px;
-    padding: 0 24px;
-    border-radius: 20px;
+    padding: 0 50px;
+    border-radius: 6px;
     background: #000;
     color: #fff;
     cursor: pointer;

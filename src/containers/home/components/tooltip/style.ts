@@ -5,6 +5,7 @@ export const TooltipWrapper = styled.div`
     position: relative;
     display: inline-block;
     width: 100%;
+    vertical-align: middle;
 
     /* Wrapper 위에 마우스 올렸을 때 TooltipContent 보이게 */
     &:hover [data-tooltip-content="true"] {

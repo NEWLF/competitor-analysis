@@ -120,7 +120,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                             <EllipsisTooltip value={category} />
                         </TD>
 
-                        <ImgBox rowSpan={5} onClick={handleOpenDetail}>
+                        {/*<ImgBox rowSpan={5} onClick={handleOpenDetail}>*/}
+                        <ImgBox rowSpan={5} >
                             <MainImage src={hoverColor || image} alt={name} loading="lazy"/>
                         </ImgBox>
                     </InfoRow>

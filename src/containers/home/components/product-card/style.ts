@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const CardWrapper = styled.div`
     max-width: 350px;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 6px;
     background: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 `;
@@ -13,7 +13,7 @@ export const HeaderText = styled.div`
     font-size: 14px;
     height: 70px;
     font-weight: 600;
-    color: #4b5563;
+    color: rgba(0,0,0,0.88);
     word-break: break-all;
 `;
 
@@ -31,14 +31,14 @@ export const ContentMask = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 6px 6px;
 `;
 
 export const ProductTable = styled.table`
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    font-size: 12px;
+    font-size: 14px;
     border-top: 1px solid #ccc ;
 
     tbody tr > *:last-child {
@@ -51,7 +51,7 @@ export const ProductTable = styled.table`
 `;
 
 export const InfoRow = styled.tr`
-  height: 42px;
+  height: 40px;
 `;
 
 export const ColorRow = styled.tr`
@@ -66,7 +66,7 @@ export const TH = styled.th`
     width: 20%;
     padding: 6px 10px;
     text-align: center;
-    color: #4b5563;
+    color: rgba(0,0,0,0.88);
     background-color: #f3f4f6;
     border-bottom: 1px solid #ccc;
     vertical-align: middle;
