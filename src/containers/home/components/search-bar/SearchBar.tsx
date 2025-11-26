@@ -22,8 +22,7 @@ import { LFBrandPicker } from "../filter/lfBrand/LfBrandPicker";
 import { FilterField } from "./FilterField";
 import { PickerItem } from "./PickerItem";
 import { useCompetitorBrands } from "../../hooks/useCompetitorBrands";
-import {useLFBrands} from "@/containers/home/hooks/useLFBrands";
-
+import { useLFBrands } from "@/containers/home/hooks/useLFBrands";
 
 export function SearchBar() {
   const [, setFilter] = useFilter();
@@ -57,10 +56,11 @@ export function SearchBar() {
       {!isMobile && (
         <React.Fragment>
           <PickerItem label={get조직Label(filter, lfBrandOptions)}>
+            {console.log(filter)}
             <LFBrandPicker
-                items={lfBrandOptions}
-                value={filter.조직}
-                onChange={(조직) => put({ 조직 })}
+              items={lfBrandOptions}
+              value={filter.조직}
+              onChange={(조직) => put({ 조직 })}
             />
           </PickerItem>
           <PickerItem

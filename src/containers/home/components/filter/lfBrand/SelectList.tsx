@@ -5,7 +5,7 @@ interface Props {
   checkbox?: boolean;
   center?: boolean;
   value?: string[] | "ALL";
-  onChange: (value: string[] | "ALL") => void;
+  onChange: (value: string) => void;
 }
 
 export function SelectList({
@@ -15,17 +15,15 @@ export function SelectList({
   value,
   onChange,
 }: Props) {
-  const hasAllOption = items.some(item => item.id === "ALL");
-
-
   return (
     <div>
       {items.map((item, index) => (
         <SelectItem
           key={index}
-          value={value === "ALL" ? item.id === "ALL" : Array.isArray(value) && value.includes(item.id)}
+          value={value === item.id}
           checkbox={checkbox}
           center={center}
+          onToggle={() => onChange(item.id)}
         >
           {item.label}
         </SelectItem>
