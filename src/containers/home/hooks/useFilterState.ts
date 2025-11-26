@@ -13,7 +13,7 @@ const DEFAULT_FILTER_STATE: Filter = {
   시작년월: { year, month },
   종료년월: { year, month },
   조직: "G1_BPU03",
-  경쟁사브랜드: "ALL",
+  경쟁사브랜드: ["BP"],
   카테고리: "",
   소재: "",
   상품명: "",

@@ -1,6 +1,3 @@
-// remotes/legacy/procedure/fetchCompetitorBrands.ts
-
-import { Filter } from "types/Filter";
 import { executeProcedureRaw } from "./procedure";
 
 export interface CompetitorBrand {

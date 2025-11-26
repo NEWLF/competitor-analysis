@@ -4,12 +4,12 @@ import {
 } from "@/containers/home/hooks/useCompetitorBrands";
 import styled from "@emotion/styled";
 import { Badge } from "antd";
-import { NORMAL_LIST } from "constants/options";
 import { useDetailOrgs } from "hooks/useDetailOrgs";
 import { useItems } from "hooks/useItems";
 import { DetailOrg, Item } from "remotes/legacy";
 import { Filter } from "types/Filter";
 import { pressableStyle } from "utils/style";
+import {useLFBrands} from "@/containers/home/hooks/useLFBrands";
 
 interface Props {
   value: Filter;
@@ -17,9 +17,10 @@ interface Props {
 }
 
 export function FilterResultSection({ value, onMenuClick }: Props) {
-  const orgs = useDetailOrgs();
-  const compbrand = useCompetitorBrands();
-  const items = useItems();
+    const { data: lfBrandOptions = [] } = useLFBrands();
+    const orgs = useDetailOrgs();
+    const compbrand = useCompetitorBrands();
+    const items = useItems();
 
   return (
     <Container>
@@ -29,9 +30,9 @@ export function FilterResultSection({ value, onMenuClick }: Props) {
       <ResultCell onClick={() => onMenuClick("종료년월")}>
         {get종료년월Label(value)}
       </ResultCell>
-      <ResultCell onClick={() => onMenuClick("조직")}>
-        {get조직Label(value, orgs.data)}
-      </ResultCell>
+        <ResultCell onClick={() => onMenuClick("조직")}>
+            {get조직Label(value, lfBrandOptions)}
+        </ResultCell>
       <ResultCell
         count={getOptionCount(value.경쟁사브랜드)}
         onClick={() => onMenuClick("경쟁사브랜드")}
@@ -54,10 +55,8 @@ export function get종료년월Label(value: Filter) {
     .padStart(2, "0")}`;
 }
 
-export function get조직Label(value: Filter, orgs: DetailOrg[]) {
-  return value.조직 === "ALL"
-    ? "전체"
-    : orgs?.find((i) => i.ORG4_CODE === value.조직).name || "";
+export function get조직Label(value: Filter, lfBrandOptions: { id: string; label: string }[] = []) {
+    return lfBrandOptions.find((i) => i.id === value.조직)?.label || "";
 }
 
 export function get경쟁사브랜드Label(

@@ -1,14 +1,14 @@
 import React from "react";
 import { SelectList } from "./SelectList";
-import type { CompetitorBrandOption } from "../../../hooks/useCompetitorBrands";
+import type { LFBrandOption } from "../../../hooks/useLFBrands";
 
 interface Props {
-    items: CompetitorBrandOption[];         // ← 반드시 배열
+    items: LFBrandOption[];         // ← 반드시 배열
     value?: string[] | "ALL";
     onChange: (value: string[] | "ALL") => void;
 }
 
-export const CompetitorBrandPicker: React.FC<Props> = ({
+export const LFBrandPicker: React.FC<Props> = ({
    items,
    value,
    onChange,

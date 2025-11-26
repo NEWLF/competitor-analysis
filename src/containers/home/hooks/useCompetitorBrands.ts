@@ -1,5 +1,3 @@
-// src/containers/home/hooks/useCompetitorBrands.ts
-
 import { useQuery } from "react-query";
 import { CompetitorBrand, fetchCompetitorBrands } from "remotes/legacy";
 

@@ -18,18 +18,19 @@ import {
 } from "../filter/modal/FilterResultSection";
 import { useFilterModal } from "../filter/modal/useFilterModal";
 import { OrganizationPicker } from "../filter/organization";
+import { LFBrandPicker } from "../filter/lfBrand/LfBrandPicker";
 import { FilterField } from "./FilterField";
 import { PickerItem } from "./PickerItem";
 import { useCompetitorBrands } from "../../hooks/useCompetitorBrands";
+import {useLFBrands} from "@/containers/home/hooks/useLFBrands";
+
 
 export function SearchBar() {
   const [, setFilter] = useFilter();
   const [filter, put] = useTmpFilter();
   const open = useFilterModal();
   const isMobile = useCheckIsMobile();
-  const orgs = useDetailOrgs();
-
-  // 화면 로딩 시 fetch (1회)
+  const { data: lfBrandOptions = [] } = useLFBrands();
   const { data: competitorBrandOptions = [] } = useCompetitorBrands();
 
   return (
@@ -55,11 +56,11 @@ export function SearchBar() {
       </PickerItem>
       {!isMobile && (
         <React.Fragment>
-          <PickerItem label={get조직Label(filter, orgs.data)}>
-            <OrganizationPicker
-              flat
-              value={filter.조직}
-              onChange={(조직) => put({ 조직 })}
+          <PickerItem label={get조직Label(filter, lfBrandOptions)}>
+            <LFBrandPicker
+                items={lfBrandOptions}
+                value={filter.조직}
+                onChange={(조직) => put({ 조직 })}
             />
           </PickerItem>
           <PickerItem
