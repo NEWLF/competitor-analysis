@@ -31,36 +31,34 @@ export interface ColorItem {
 export interface ProductCardProps {
     name: string;
     image: string;
-    detailUrl: string;
+    detailUrl?: string;
     colors?: (string | ColorItem)[];
-    brand?: string;
     fit?: string;
+    category?: string;
     origin?: string;
     normalPrice?: string | number;
-    salePrice?: string | number | null;
+    salePrice?: string | number;
     createdAt?: string;
-    category?: string;
-    sizes?: React.ReactNode;
-    material?: React.ReactNode;
-    mixRate?: React.ReactNode;
+    sizes?: string;
+    material?: string;
+    mixRate?: string;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
-        name,
-        image,
-        detailUrl,
-        colors = [],
-        brand,
-        fit,
-        category,
-        origin,
-        normalPrice,
-        salePrice,
-        createdAt,
-        sizes,
-        material,
-        mixRate,
-    }) => {
+    name,
+    image,
+    detailUrl,
+    colors = [],
+    fit,
+    category,
+    origin,
+    normalPrice,
+    salePrice,
+    createdAt,
+    sizes,
+    material,
+    mixRate,
+}) => {
     const [hoverColor, setHoverColor] = useState<string | null>(null);
     const [hoveredColorInfo, setHoveredColorInfo] = useState<{
         label: string;
@@ -77,10 +75,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         return colorItem?.src || "";
     };
 
-    const getColorLabel = (
-        colorItem: string | ColorItem,
-        index: number
-    ): string => {
+    const getColorLabel = (colorItem: string | ColorItem, index: number): string => {
         if (typeof colorItem === "string") {
             return `컬러 ${index + 1}`;
         }
@@ -108,43 +103,36 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         setHoveredColorInfo(null);
     };
 
-    const renderPrice = (value?: string | number | null) => {
-        if (value === null || value === undefined || value === "") {
-            return "—";
-        }
-        return value;
-    };
-
     return (
         <CardWrapper>
-            <HeaderText title={name}>[{brand}] {name}</HeaderText>
+            <HeaderText title={name}>{name}</HeaderText>
             <CreateDateBox>
-                <CreateDateText>(수집일 : {createdAt})</CreateDateText>
+                <CreateDateText>
+                    (수집일:{createdAt})
+                </CreateDateText>
             </CreateDateBox>
             <ContentMask>
                 <ProductTable>
                     <tbody>
-
                     <InfoRow>
                         <TH>카테고리</TH>
-                        <TD><EllipsisTooltip value={category}/></TD>
+                        <TD>
+                            <EllipsisTooltip value={category} />
+                        </TD>
 
-                        {/*<ImgBox rowSpan={5} onClick={handleOpenDetail}>*/}
-                        <ImgBox rowSpan={5}>
-                            <MainImage
-                                src={hoverColor || image}
-                                alt={name}
-                                loading="lazy"
-                            />
+                        <ImgBox rowSpan={5} onClick={handleOpenDetail}>
+                            <MainImage src={hoverColor || image} alt={name} loading="lazy"/>
                         </ImgBox>
                     </InfoRow>
+
                     <InfoRow>
                         <TH>정상가</TH>
-                        <TD>{renderPrice(normalPrice)}</TD>
+                        <TD>{normalPrice}</TD>
                     </InfoRow>
+
                     <InfoRow>
                         <TH>할인가</TH>
-                        <TD>{renderPrice(salePrice)}</TD>
+                        <TD>{salePrice}</TD>
                     </InfoRow>
 
                     <InfoRow>
@@ -158,10 +146,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     </InfoRow>
 
                     <ColorRow>
-                        <TH>
-                            아더컬러
-                            <br />({colors.length})
-                        </TH>
+                        <TH>아더컬러<br />({colors.length})</TH>
                         <TD colSpan={2}>
                             <ColorRowCell>
                                 {hoveredColorInfo && (
@@ -187,7 +172,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                                                 onMouseEnter={() =>
                                                     handleColorEnter(colorItem, index)
                                                 }
-                                                // onClick={handleOpenDetail}
                                             />
                                         );
                                     })}
@@ -198,23 +182,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
                     <ScrollRow>
                         <TH>사이즈</TH>
-                        <TD colSpan={2}>
-                            <ScrollBoxY>{sizes}</ScrollBoxY>
-                        </TD>
+                        <TD colSpan={2}><ScrollBoxY>{sizes}</ScrollBoxY></TD>
                     </ScrollRow>
 
                     <ScrollRow>
                         <TH>소재</TH>
-                        <TD colSpan={2}>
-                            <ScrollBoxY>{material}</ScrollBoxY>
-                        </TD>
+                        <TD colSpan={2}><ScrollBoxY>{material}</ScrollBoxY></TD>
                     </ScrollRow>
 
                     <ScrollRow>
                         <TH>혼용률</TH>
-                        <TD colSpan={2}>
-                            <ScrollBoxY>{mixRate}</ScrollBoxY>
-                        </TD>
+                        <TD colSpan={2}><ScrollBoxY>{mixRate}</ScrollBoxY></TD>
                     </ScrollRow>
                     </tbody>
                 </ProductTable>

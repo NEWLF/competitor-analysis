@@ -38,7 +38,7 @@ const EllipsisTooltip: React.FC<EllipsisTooltipProps> = ({
                 ref={ref}
                 style={multiline ? { minHeight } : undefined}
             >
-                {value || "—"}
+                {value || ""}
             </EllipsisComponent>
 
             {showTooltip && (
