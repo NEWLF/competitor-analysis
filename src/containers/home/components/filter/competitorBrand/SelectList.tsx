@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { SelectItem } from "../../SelectItem";
 
 interface Props {
@@ -15,38 +16,50 @@ export function SelectList({
   value,
   onChange,
 }: Props) {
-  const hasAllOption = items.some(item => item.id === "ALL");
+  const hasAllOption = items.some((item) => item.id === "ALL");
   const actualItemCount = hasAllOption ? items.length - 1 : items.length;
-  
-  const handleToggle = (id: string) => {
-    if (id === "ALL") {
+
+  console.log({ hasAllOption });
+  console.log({ actualItemCount });
+  const handleToggle = useCallback(
+    (id: string) => {
+      if (id === "ALL") {
+        if (value === "ALL") {
+          onChange([]);
+        } else {
+          onChange("ALL");
+        }
+        return;
+      }
+
       if (value === "ALL") {
-        onChange([]);
+        onChange([id]);
       } else {
-        onChange("ALL");
-      }
-      return;
-    }
+        const nextValue =
+          Array.isArray(value) && value.includes(id)
+            ? value.filter((i) => i !== id)
+            : [...(Array.isArray(value) ? value : []), id];
 
-    if (value === "ALL") {
-      onChange([id]);
-    } else {
-      const nextValue = Array.isArray(value) && value.includes(id) ? value.filter(i => i !== id) : [...(Array.isArray(value) ? value : []), id];
-
-      if (nextValue.length === actualItemCount) {
-        onChange("ALL");
-      } else {
-        onChange(nextValue);
+        if (nextValue.length === actualItemCount) {
+          onChange("ALL");
+        } else {
+          onChange(nextValue);
+        }
       }
-    }
-  };
+    },
+    [value, actualItemCount, onChange]
+  );
 
   return (
     <div>
       {items.map((item, index) => (
         <SelectItem
           key={index}
-          value={value === "ALL" ? item.id === "ALL" : Array.isArray(value) && value.includes(item.id)}
+          value={
+            value === "ALL"
+              ? item.id === "ALL"
+              : Array.isArray(value) && value.includes(item.id)
+          }
           onToggle={() => handleToggle(item.id)}
           checkbox={checkbox}
           center={center}

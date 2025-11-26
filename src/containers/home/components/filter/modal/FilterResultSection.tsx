@@ -1,3 +1,7 @@
+import {
+  CompetitorBrandOption,
+  useCompetitorBrands,
+} from "@/containers/home/hooks/useCompetitorBrands";
 import styled from "@emotion/styled";
 import { Badge } from "antd";
 import { NORMAL_LIST } from "constants/options";
@@ -14,22 +18,26 @@ interface Props {
 
 export function FilterResultSection({ value, onMenuClick }: Props) {
   const orgs = useDetailOrgs();
+  const compbrand = useCompetitorBrands();
   const items = useItems();
 
   return (
     <Container>
-        <ResultCell onClick={() => onMenuClick("시작년월")}>
-            {get시작년월Label(value)}
-        </ResultCell>
-        <ResultCell onClick={() => onMenuClick("종료년월")}>
-            {get종료년월Label(value)}
-        </ResultCell>
-        <ResultCell onClick={() => onMenuClick("조직")}>
-            {get조직Label(value, orgs.data)}
-        </ResultCell>
-        <ResultCell count={getOptionCount(value.경쟁사브랜드)} onClick={() => onMenuClick("경쟁사브랜드")}>
-            {get경쟁사브랜드Label(value)}
-        </ResultCell>
+      <ResultCell onClick={() => onMenuClick("시작년월")}>
+        {get시작년월Label(value)}
+      </ResultCell>
+      <ResultCell onClick={() => onMenuClick("종료년월")}>
+        {get종료년월Label(value)}
+      </ResultCell>
+      <ResultCell onClick={() => onMenuClick("조직")}>
+        {get조직Label(value, orgs.data)}
+      </ResultCell>
+      <ResultCell
+        count={getOptionCount(value.경쟁사브랜드)}
+        onClick={() => onMenuClick("경쟁사브랜드")}
+      >
+        {get경쟁사브랜드Label(value, compbrand.data)}
+      </ResultCell>
     </Container>
   );
 }
@@ -41,18 +49,24 @@ export function get시작년월Label(value: Filter) {
 }
 
 export function get종료년월Label(value: Filter) {
-    return `${value.종료년월.year}/${value.종료년월.month
-        .toString()
-        .padStart(2, "0")}`;
+  return `${value.종료년월.year}/${value.종료년월.month
+    .toString()
+    .padStart(2, "0")}`;
 }
 
 export function get조직Label(value: Filter, orgs: DetailOrg[]) {
-    return value.조직 === "ALL" ? "전체" : orgs?.find((i) => i.ORG4_CODE === value.조직).name || "";
+  return value.조직 === "ALL"
+    ? "전체"
+    : orgs?.find((i) => i.ORG4_CODE === value.조직).name || "";
 }
 
-export function get경쟁사브랜드Label(value: Filter) {
-
-    return value.경쟁사브랜드 === "ALL" ? "전체" : NORMAL_LIST?.find((i) =>  i.id === value.경쟁사브랜드[0])?.label || "";
+export function get경쟁사브랜드Label(
+  value: Filter,
+  brand: CompetitorBrandOption[]
+) {
+  return value.경쟁사브랜드 === "ALL"
+    ? "전체"
+    : brand?.find((i) => i.id === value.경쟁사브랜드[0])?.label || "";
 }
 
 export function getCountLabel<T>(value: T[] | "ALL") {

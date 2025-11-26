@@ -1,9 +1,9 @@
 import { first } from "lodash";
 import { Filter } from "types/Filter";
-import { executeProcedure } from "./procedure";
+import { executeProcedureWithFilter } from "./procedure";
 
 export async function fetchLastUpdateDate(payload: Filter) {
-  const res: LastUpdateDate[] = await executeProcedure(
+  const res: LastUpdateDate[] = await executeProcedureWithFilter(
     "PKG_BI_MT_E_9331U.SP_BI_MT_E_9331_P3",
     payload
   );

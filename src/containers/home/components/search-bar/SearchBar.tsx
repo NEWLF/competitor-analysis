@@ -63,7 +63,7 @@ export function SearchBar() {
             />
           </PickerItem>
           <PickerItem
-            label={`${get경쟁사브랜드Label(filter)} ${getCountLabel(
+            label={`${get경쟁사브랜드Label(filter, competitorBrandOptions)} ${getCountLabel(
               filter.경쟁사브랜드
             )}`}
           >

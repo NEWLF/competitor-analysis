@@ -14,10 +14,13 @@ export function useCompetitorBrands() {
     queryFn: async () => {
       const rows: CompetitorBrand[] = await fetchCompetitorBrands();
 
-      return rows.map((row) => ({
-        id: row.COMPE_BRAND_CODE,
-        label: row.COMPE_BRAND_NAME,
-      }));
+      return [
+        { id: "ALL", label: "전체" },
+        ...rows.map((row) => ({
+          id: row.COMPE_BRAND_CODE,
+          label: row.COMPE_BRAND_NAME,
+        })),
+      ];
     },
   });
 }
