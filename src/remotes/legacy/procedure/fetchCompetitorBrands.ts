@@ -11,7 +11,7 @@ export interface CompetitorBrand {
 export async function fetchCompetitorBrands(): Promise<CompetitorBrand[]> {
   const res = await executeProcedureRaw(
     "PKG_BI_MT_UI_FILTER.SP_COMPE_BRNAD",
-    {}
+      {'': ''}
   );
 
   if (Array.isArray(res)) return res as CompetitorBrand[];

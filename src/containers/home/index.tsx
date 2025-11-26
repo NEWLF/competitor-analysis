@@ -92,14 +92,7 @@ function HomePage() {
                     <>
                         <GridWrapper>
                             {visibleProducts.map((product) => (
-                                <ProductCard
-                                    key={
-                                        product.brand
-                                            ? `${product.brand}_${product.name}`
-                                            : product.name
-                                    }
-                                    {...product}
-                                />
+                                <ProductCard key={product.name}{...product}/>
                             ))}
                         </GridWrapper>
 
