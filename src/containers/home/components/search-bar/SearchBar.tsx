@@ -17,7 +17,6 @@ import {
   get경쟁사브랜드Label,
 } from "../filter/modal/FilterResultSection";
 import { useFilterModal } from "../filter/modal/useFilterModal";
-import { OrganizationPicker } from "../filter/organization";
 import { LFBrandPicker } from "../filter/lfBrand/LfBrandPicker";
 import { FilterField } from "./FilterField";
 import { PickerItem } from "./PickerItem";
@@ -56,20 +55,15 @@ export function SearchBar() {
       {!isMobile && (
         <React.Fragment>
           <PickerItem label={get조직Label(filter, lfBrandOptions)}>
-            {console.log(filter)}
             <LFBrandPicker
               items={lfBrandOptions}
               value={filter.조직}
               onChange={(조직) => put({ 조직 })}
             />
           </PickerItem>
-          <PickerItem
-            label={`${get경쟁사브랜드Label(filter, competitorBrandOptions)} ${getCountLabel(
-              filter.경쟁사브랜드
-            )}`}
-          >
+          <PickerItem label={`${get경쟁사브랜드Label(filter, competitorBrandOptions)} ${getCountLabel(filter.경쟁사브랜드)}`}>
             <CompetitorBrandPicker
-              items={competitorBrandOptions} // ← 여기 중요
+              items={competitorBrandOptions}
               value={filter.경쟁사브랜드}
               onChange={(v) => put({ 경쟁사브랜드: v })}
             />

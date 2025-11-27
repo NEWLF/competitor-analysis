@@ -21,10 +21,13 @@ import {
 
 import {
   Container,
-  StatusText,
   GridWrapper,
+  StatusText,
   MoreButtonWrapper,
   MoreButton,
+  EmptyState,
+  EmptyIcon,
+  EmptyText,
 } from "./style";
 
 const PAGE_SIZE = 20;
@@ -65,7 +68,6 @@ function HomePage() {
   );
 
   React.useEffect(() => {
-    // 데이터가 바뀔 때마다 페이지 초기화
     setVisibleCount(PAGE_SIZE);
   }, [products]);
 
@@ -85,22 +87,35 @@ function HomePage() {
 
         {isLoading && <StatusText>로딩 중...</StatusText>}
         {error && <StatusText>데이터 조회 중 오류가 발생했습니다.</StatusText>}
-        {!isLoading && !error && (
-          <>
-            <GridWrapper>
-              {visibleProducts.map((product) => (
-                <ProductCard key={product.name} {...product} />
-              ))}
-            </GridWrapper>
 
-            {visibleCount < products.length && (
-              <MoreButtonWrapper>
-                <MoreButton type="button" onClick={handleLoadMore}>
-                  더보기 ({visibleCount}/{products.length})
-                </MoreButton>
-              </MoreButtonWrapper>
-            )}
-          </>
+        {!isLoading && !error && (
+            products.length === 0 ? (
+                <EmptyState>
+                  <EmptyIcon
+                      src="/images/nosim.svg"
+                  />
+                  <EmptyText>조회된 데이터가 없습니다.</EmptyText>
+                </EmptyState>
+            ) : (
+                <>
+                  <GridWrapper>
+                    {visibleProducts.map((product) => (
+                        <ProductCard
+                            key={product.name ? `${product.name}_${product.name}` : product.name}
+                            {...product}
+                        />
+                    ))}
+                  </GridWrapper>
+
+                  {visibleCount < products.length && (
+                      <MoreButtonWrapper>
+                        <MoreButton type="button" onClick={handleLoadMore}>
+                          더보기 ({visibleCount}/{products.length})
+                        </MoreButton>
+                      </MoreButtonWrapper>
+                  )}
+                </>
+            )
         )}
       </Container>
       <ScrollToTopButton />

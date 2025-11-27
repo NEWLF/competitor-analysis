@@ -18,7 +18,7 @@ export const LFBrandPicker: React.FC<Props> = ({
     return (
         <SelectList
             items={safeItems}
-            checkbox
+            radio
             center={false}
             value={value}
             onChange={onChange}

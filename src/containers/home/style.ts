@@ -63,3 +63,25 @@ export const StatusText = styled.div`
     text-align: center;
     font-size: 14px;
 `;
+
+export const EmptyState = styled.div`
+  width: 100%;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #9ea4aa;
+`;
+
+export const EmptyIcon = styled.img`
+    width: 80px;
+    opacity: 0.6;
+`;
+
+export const EmptyText = styled.p`
+  margin: 0;
+  font-size: 18px;
+  color: #9ea4aa;
+`;

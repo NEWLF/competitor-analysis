@@ -116,24 +116,21 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     <tbody>
                     <InfoRow>
                         <TH>카테고리</TH>
-                        <TD>
-                            <EllipsisTooltip value={category} />
-                        </TD>
+                        <TD><EllipsisTooltip value={category} /></TD>
 
-                        {/*<ImgBox rowSpan={5} onClick={handleOpenDetail}>*/}
-                        <ImgBox rowSpan={5} >
+                        <ImgBox rowSpan={5} onClick={handleOpenDetail}>
                             <MainImage src={hoverColor || image} alt={name} loading="lazy"/>
                         </ImgBox>
                     </InfoRow>
 
                     <InfoRow>
                         <TH>정상가</TH>
-                        <TD>{normalPrice}</TD>
+                        <TD>{normalPrice?.toLocaleString("ko-KR")}</TD>
                     </InfoRow>
 
                     <InfoRow>
                         <TH>할인가</TH>
-                        <TD>{salePrice}</TD>
+                        <TD>{salePrice?.toLocaleString("ko-KR")}</TD>
                     </InfoRow>
 
                     <InfoRow>
