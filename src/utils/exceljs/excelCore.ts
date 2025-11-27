@@ -34,6 +34,7 @@ async function createExcelBuffer(
           );
         } else {
           startRow = await renderLandscapeTable(
+            workbook,
             worksheet,
             startRow,
             item.config,
@@ -46,6 +47,7 @@ async function createExcelBuffer(
       if (item.type === "nameCard") {
         if (item.orientation === "portrait") {
           startRow = await renderPortraitNameCard(
+            workbook,
             worksheet,
             startRow,
             item.config,
@@ -53,6 +55,7 @@ async function createExcelBuffer(
           );
         } else {
           startRow = await renderLandscapeNameCard(
+            workbook,
             worksheet,
             startRow,
             item.config,

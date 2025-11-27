@@ -47,7 +47,7 @@ function HomePage() {
     await download({
       sheetConfig: [
         {
-          sheetName: "시트이름",
+          sheetName: "경쟁사 상품",
           config: [
             {
               type: "nameCard",

@@ -33,8 +33,10 @@ const productTableConfig = [
   },
   {
     header: "아더컬러 정보",
-    key: "COLOR_IMG_URL",
-    width: 30,
+    key: "PROD_COLOR_NAME",
+    width: 8,
+    image: "multi",
+    size: { width: 50, height: 63 },
   },
   { header: "상세 이미지1", key: "COLOR_IMG_URL", image: true },
   { header: "상세 이미지2", key: "COLOR_IMG_URL", image: true },
