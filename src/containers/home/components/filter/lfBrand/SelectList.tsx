@@ -1,33 +1,26 @@
 import { SelectItem } from "../../SelectItem";
 
-interface Props {
+interface SingleSelectProps {
   items: { id: string; label: string }[];
-  checkbox?: boolean;
-  center?: boolean;
-  value?: string[] | "ALL";
+  value?: string;
   onChange: (value: string) => void;
 }
-
-export function SelectList({
-  items,
-  checkbox,
-  center,
-  value,
-  onChange,
-}: Props) {
+export function SingleSelectList({
+    items,
+    value,
+    onChange,
+  }: SingleSelectProps) {
   return (
-    <div>
-      {items.map((item, index) => (
-        <SelectItem
-          key={index}
-          value={value === item.id}
-          checkbox={checkbox}
-          center={center}
-          onToggle={() => onChange(item.id)}
-        >
-          {item.label}
-        </SelectItem>
-      ))}
-    </div>
+      <div>
+        {items.map((item) => (
+            <SelectItem
+                radio
+                value={value === item.id}
+                onToggle={() => onChange(item.id)}
+            >
+              {item.label}
+            </SelectItem>
+        ))}
+      </div>
   );
 }

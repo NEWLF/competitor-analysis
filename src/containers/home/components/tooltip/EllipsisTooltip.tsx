@@ -1,4 +1,4 @@
-// src/containers/home/components/tooltip/EllipsisTooltip.tsx
+// EllipsisTooltip.tsx
 import React from "react";
 import {
     TooltipWrapper,
@@ -9,6 +9,7 @@ import {
 import { useEllipsisTooltip } from "../../hooks/useEllipsisTooltip";
 
 const MIN_TOOLTIP_LENGTH = 12;
+const DEFAULT_MAX_WIDTH = 200;
 
 const shouldShowTooltip = (value?: string, isEllipsis?: boolean) => {
     if (!value) return false;
@@ -19,30 +20,69 @@ const shouldShowTooltip = (value?: string, isEllipsis?: boolean) => {
 export interface EllipsisTooltipProps {
     value?: string;
     multiline?: boolean;
-    minHeight?: number; // multiline일 때 높이
+    minHeight?: number;
+    maxWidth?: number;
 }
 
 const EllipsisTooltip: React.FC<EllipsisTooltipProps> = ({
-                                                             value,
-                                                             multiline = false,
-                                                             minHeight = 42,
-                                                         }) => {
+        value,
+        multiline = false,
+        minHeight = 42,
+        maxWidth,
+    }) => {
     const { ref, isEllipsis } = useEllipsisTooltip(value);
     const showTooltip = shouldShowTooltip(value, isEllipsis);
 
+    const [tooltipPos, setTooltipPos] = React.useState<{
+        top: number;
+        left: number;
+    } | null>(null);
+
     const EllipsisComponent = multiline ? EllipsisMultiLine : EllipsisOneLine;
 
+    const updatePosition = React.useCallback(() => {
+        if (!showTooltip || !ref.current) {
+            setTooltipPos(null);
+            return;
+        }
+
+        const rect = ref.current.getBoundingClientRect();
+        const top = rect.bottom - -2;
+        const left = rect.left;
+
+        setTooltipPos({ top, left });
+    }, [ref, showTooltip]);
+
+    const handleEnter = () => {
+        updatePosition();
+    };
+
+    const handleLeave = () => {
+        setTooltipPos(null);
+    };
+
+    const effectiveMaxWidth = maxWidth ?? DEFAULT_MAX_WIDTH;
+
     return (
-        <TooltipWrapper>
-            <EllipsisComponent
-                ref={ref}
-                style={multiline ? { minHeight } : undefined}
-            >
+        <TooltipWrapper
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+            onFocus={handleEnter}
+            onBlur={handleLeave}
+        >
+            <EllipsisComponent ref={ref} style={multiline ? { minHeight } : undefined}>
                 {value || ""}
             </EllipsisComponent>
 
-            {showTooltip && (
-                <TooltipContent data-tooltip-content="true">
+            {showTooltip && tooltipPos && (
+                <TooltipContent
+                    style={{
+                        position: "fixed",
+                        top: tooltipPos.top,
+                        left: tooltipPos.left,
+                        maxWidth: `${effectiveMaxWidth}px`,
+                    }}
+                >
                     {value}
                 </TooltipContent>
             )}

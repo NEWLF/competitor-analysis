@@ -17,7 +17,7 @@ import {
   get경쟁사브랜드Label,
 } from "../filter/modal/FilterResultSection";
 import { useFilterModal } from "../filter/modal/useFilterModal";
-import { LFBrandPicker } from "../filter/lfBrand/LfBrandPicker";
+import { LFBrandPicker } from "../filter/lfBrand/LFBrandPicker";
 import { FilterField } from "./FilterField";
 import { PickerItem } from "./PickerItem";
 import { useCompetitorBrands } from "../../hooks/useCompetitorBrands";
@@ -78,15 +78,14 @@ export function SearchBar() {
             value={filter.소재}
             onChange={(e) => put({ 소재: e.currentTarget.value })}
           />
+          <FilterField
+              label={`상품명`}
+              value={filter.상품명}
+              onChange={(e) => put({ 상품명: e.currentTarget.value })}
+          />
         </React.Fragment>
       )}
-      <Flex.CenterVertical style={{ flex: 1 }}>
-        <FilterField
-          label={`상품명`}
-          value={filter.상품명}
-          onChange={(e) => put({ 상품명: e.currentTarget.value })}
-        />
-      </Flex.CenterVertical>
+      <Flex.CenterVertical style={{ flex: 1 }}></Flex.CenterVertical>
       <SearchButton onClick={() => setFilter(filter)}>
         <MagnifyingGlassIcon width={14} color={colors.white} />
         <Spacing width={8} />

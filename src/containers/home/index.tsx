@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Divider } from "@boxfoxs/bds-web";
 import { Header } from "../../components/header";
 import { SearchBar } from "./components/search-bar";
@@ -22,12 +22,14 @@ import {
 import {
   Container,
   GridWrapper,
-  StatusText,
   MoreButtonWrapper,
   MoreButton,
   EmptyState,
   EmptyIcon,
   EmptyText,
+  PageLoadingOverlay,
+  DotTypingWrapper,
+  Dot,
 } from "./style";
 
 const PAGE_SIZE = 20;
@@ -36,23 +38,27 @@ function HomePage() {
   const { data, isLoading, error } = useCompetitorProductList();
   const openChromeModal = useChromeNoticeModal();
 
-  React.useEffect(() => {
+  // 브라우저/크롬 안내 모달
+  useEffect(() => {
     const cookieDate = localStorage.getItem("modalClosedDate2");
     const today = new Date().toLocaleDateString();
+
     if (cookieDate === today) return;
     openChromeModal();
   }, [openChromeModal]);
 
-  React.useEffect(() => {
+  // 리포트 로그
+  useEffect(() => {
     log({
       reportId: "912",
-      reportName: "경쟁사 상품 구성 현황 대시보드(26SS~)",
+      reportName: "경쟁사 상품 구성 현황 대시보드",
       hostAddress: window.location.host,
       deptNo: sessionStorage.getItem("userId"),
     });
   }, []);
 
-  const products: ProductCardProps[] = React.useMemo(() => {
+  // 원시 데이터 → 카드용 데이터 매핑
+  const products: ProductCardProps[] = useMemo(() => {
     const list = extractCompetitorList(data);
     if (!list.length) return [];
 
@@ -60,66 +66,106 @@ function HomePage() {
     return groups.map(mapGroupToProductCardProps);
   }, [data]);
 
-  const [visibleCount, setVisibleCount] = React.useState(PAGE_SIZE);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const visibleProducts = React.useMemo(
-    () => products.slice(0, visibleCount),
-    [products, visibleCount]
+  // products 변경 시 첫 페이지로 리셋
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [products.length]);
+
+  const visibleProducts = useMemo(
+      () => products.slice(0, visibleCount),
+      [products, visibleCount]
   );
 
-  React.useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [products]);
+  const hasError = Boolean(error);
+  const hasProducts = products.length > 0;
+
+  const showEmptyState = !isLoading && (!hasProducts || hasError);
+  const showProductList = !isLoading && hasProducts && !hasError;
+  const canLoadMore = showProductList && visibleCount < products.length;
 
   const handleLoadMore = () => {
     setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, products.length));
   };
 
   return (
-    <div>
-      <Header
-        steps={["9.1 경쟁사 상품분석", "경쟁사 상품 구성 현황 대시보드(26SS~)"]}
-      />
-      <SearchBar />
-      <SearchResultHeader />
-      <Container>
-        <Divider height={1} width="100%" color={"rgb(204, 204, 204)"} />
+      <div>
+        <Header steps={["9.1 경쟁사 상품분석", "경쟁사 상품 구성 현황 대시보드"]}/>
+        <SearchBar />
+        <SearchResultHeader />
+        <Container>
+          <Divider height={1} width="100%" color="rgb(204, 204, 204)" />
 
-        {isLoading && <StatusText>로딩 중...</StatusText>}
-        {error && <StatusText>데이터 조회 중 오류가 발생했습니다.</StatusText>}
+          {showEmptyState && (
+              <EmptyState>
+                <EmptyIcon src="/images/error.svg" />
+                <EmptyText>조회된 데이터가 없습니다.</EmptyText>
+              </EmptyState>
+          )}
 
-        {!isLoading && !error && (
-            products.length === 0 ? (
-                <EmptyState>
-                  <EmptyIcon
-                      src="/images/nosim.svg"
+          {showProductList && (
+              <>
+                <GridWrapper>
+                  <ProductCard
+                      name="테스트 상품명 테스트 상품명 테스트 상품명상품명상품명상품명상품명상품명상품명상품명"
+                      image="https://img.ssfshop.com/cmd/RB_100x13sfshop.com/goods/BPBR/25/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg"
+                      detailUrl="#"
+                      category="상의 > 티셔츠 > 반팔티상의 > 티셔츠 > 반팔티상의 > 티셔츠 > 반팔티상의 > 티셔츠 > 반팔티상의 > 티셔츠 > 반팔티상의 > 티셔츠 > 반팔티상의 > 티셔츠 > 반팔티상의 > 티셔츠 > 반팔티"
+                      fit="오버핏 / 레귤러 믹스오버핏 / 레귤러 믹스오버핏 / 레귤러 믹스오버핏 / 레귤러 믹스오버핏 / 레귤러 믹스오버핏 / 레귤러 믹스오버핏 / 레귤러 믹스오버핏 / 레귤러 믹스"
+                      origin="KOREAKOREAKOREAKOREAKOREAKOREAKOREAKOREAKOREAKOREAKOREA"
+                      normalPrice={129000}
+                      salePrice={89000}
+                      createdAt="2025-11-27"
+                      colors={[
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "BLACK" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "WHITE" },
+                      ]}
+                      sizes="XS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXL"
+                      material="겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%"
+                      mixRate="면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%면 80%, 폴리에스터 15%, 폴리우레탄 5%"
                   />
-                  <EmptyText>조회된 데이터가 없습니다.</EmptyText>
-                </EmptyState>
-            ) : (
-                <>
-                  <GridWrapper>
-                    {visibleProducts.map((product) => (
-                        <ProductCard
-                            key={product.name ? `${product.name}_${product.name}` : product.name}
-                            {...product}
-                        />
-                    ))}
-                  </GridWrapper>
+                  {visibleProducts.map((product, index) => (
+                      <ProductCard key={product.name ? `${product.name}_${index}` : String(index)}
+                          {...product}
+                      />
+                  ))}
+                </GridWrapper>
 
-                  {visibleCount < products.length && (
-                      <MoreButtonWrapper>
-                        <MoreButton type="button" onClick={handleLoadMore}>
-                          더보기 ({visibleCount}/{products.length})
-                        </MoreButton>
-                      </MoreButtonWrapper>
-                  )}
-                </>
-            )
+                {canLoadMore && (
+                    <MoreButtonWrapper>
+                      <MoreButton type="button" onClick={handleLoadMore}>
+                        더보기 ({visibleCount}/{products.length})
+                      </MoreButton>
+                    </MoreButtonWrapper>
+                )}
+              </>
+          )}
+        </Container>
+        <ScrollToTopButton />
+
+        {isLoading && (
+            <PageLoadingOverlay>
+              <DotTypingWrapper>
+                <Dot delay={0} />
+                <Dot delay={0.12} />
+                <Dot delay={0.24} />
+              </DotTypingWrapper>
+            </PageLoadingOverlay>
         )}
-      </Container>
-      <ScrollToTopButton />
-    </div>
+      </div>
   );
 }
 

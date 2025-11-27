@@ -2,48 +2,63 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
     width: 100%;
-    padding: 0 20px;
+    padding: 0 20px 40px;
+    display: flex;
+    flex-direction: column;
 `;
 
 export const GridWrapper = styled.div`
     display: grid;
-    gap: 15px;
-    padding: 15px 0 40px 0 ;
-    grid-template-columns: repeat(7, 350px);
-    justify-content: center;
     width: 100%;
-    margin: 0 auto;
-    align-items: start;
+    gap: 15px;
+    padding-top: 15px;
 
-    @media (max-width: calc(350px * 7 + 24px * 6)) {
-        grid-template-columns: repeat(6, 350px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    @media (min-width: 360px) {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    @media (max-width: calc(350px * 6 + 24px * 5)) {
-        grid-template-columns: repeat(5, 350px);
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    
+    @media (min-width: 1440px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    @media (max-width: calc(350px * 5 + 24px * 4)) {
-        grid-template-columns: repeat(4, 350px);
+    @media (min-width: 1920px) {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
     }
 
-    @media (max-width: calc(350px * 4 + 24px * 3)) {
-        grid-template-columns: repeat(3, 350px);
+    @media (min-width: 2560px) {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 
-    @media (max-width: calc(350px * 3 + 24px * 2)) {
-        grid-template-columns: repeat(2, 350px);
+    @media (min-width: 3008px) {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+    
+    @media (min-width: 3360px) {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+    
+    @media (min-width: 3840px) {
+        grid-template-columns: repeat(9, minmax(0, 1fr))
     }
 `;
 
 export const MoreButtonWrapper = styled.div`
     display: flex;
     justify-content: center;
-    padding: 8px 0 40px;
+    padding: 40px 0;
 `;
 
 export const MoreButton = styled.button`
-    min-width: 160px;
+    width: 35%;
     height: 40px;
     padding: 0 50px;
     border-radius: 6px;
@@ -58,30 +73,66 @@ export const MoreButton = styled.button`
     }
 `;
 
-export const StatusText = styled.div`
-    padding: 16px 0;
-    text-align: center;
-    font-size: 14px;
-`;
-
+// 데이터 없을때
 export const EmptyState = styled.div`
-  width: 100%;
-  min-height: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  color: #9ea4aa;
+    padding: 100px 0;
+    flex: 1;                               
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;               
+    gap: 40px;
 `;
 
 export const EmptyIcon = styled.img`
     width: 80px;
-    opacity: 0.6;
+    opacity: 0.4;
 `;
 
-export const EmptyText = styled.p`
-  margin: 0;
-  font-size: 18px;
-  color: #9ea4aa;
+export const EmptyText = styled.div`
+    font-size: 18px;
+    color: #000;
+`;
+
+// 로딩
+export const PageLoadingOverlay = styled.div`
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;  
+`;
+
+export const DotTypingWrapper = styled.div`
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+`;
+
+interface DotProps {
+    delay: number;
+}
+
+export const Dot = styled.span<DotProps>`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #000;         
+  display: block;
+  animation: dot-bounce 0.6s ease-in-out infinite alternate;
+  animation-delay: ${({ delay }) => `${delay}s`};
+
+  @keyframes dot-bounce {
+    0% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    100% {
+      transform: translateY(-8px);
+      opacity: 1;
+    }
+  }
 `;

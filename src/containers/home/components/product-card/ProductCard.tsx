@@ -17,8 +17,8 @@ import {
     ColorTooltipInner,
     MainImage,
     InfoRow,
-    CreateDateText,
     CreateDateBox,
+    TdBox,
 } from "./style";
 
 import EllipsisTooltip from "../tooltip/EllipsisTooltip";
@@ -60,57 +60,42 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     mixRate,
 }) => {
     const [hoverColor, setHoverColor] = useState<string | null>(null);
-    const [hoveredColorInfo, setHoveredColorInfo] = useState<{
-        label: string;
-        index: number;
-    } | null>(null);
+    const [hoveredColorLabel, setHoveredColorLabel] = useState<string | null>(null);
 
     const handleOpenDetail = () => {
         if (!detailUrl) return;
         window.open(detailUrl, "_blank", "noopener,noreferrer");
     };
 
-    const getColorSrc = (colorItem: string | ColorItem): string => {
-        if (typeof colorItem === "string") return colorItem;
-        return colorItem?.src || "";
+    const getColorSrc = (colorItem: string | ColorItem): string =>
+        typeof colorItem === "string" ? colorItem : colorItem?.src || "";
+
+    const getColorLabel = (colorItem: string | ColorItem): string | undefined => {
+        if (typeof colorItem !== "string") {
+            const trimmed = colorItem.label?.trim();
+            if (trimmed) return trimmed;
+        }
+        return undefined;
     };
 
-    const getColorLabel = (colorItem: string | ColorItem, index: number): string => {
-        if (typeof colorItem === "string") {
-            return `컬러 ${index + 1}`;
-        }
-
-        if (colorItem?.label && colorItem.label.trim().length > 0) {
-            return colorItem.label;
-        }
-
-        return `컬러 ${index + 1}`;
-    };
-
-    const handleColorEnter = (colorItem: string | ColorItem, index: number) => {
+    const handleColorEnter = (colorItem: string | ColorItem) => {
         const src = getColorSrc(colorItem);
+        const label = getColorLabel(colorItem);
+        console.log("color hover:", colorItem, "src:", src, "label:", label);
         if (!src) return;
 
         setHoverColor(src);
-        setHoveredColorInfo({
-            label: getColorLabel(colorItem, index),
-            index,
-        });
+        setHoveredColorLabel(getColorLabel(colorItem) ?? null);
     };
 
     const handleColorLeave = () => {
         setHoverColor(null);
-        setHoveredColorInfo(null);
+        setHoveredColorLabel(null);
     };
 
     return (
         <CardWrapper>
-            <HeaderText title={name}>{name}</HeaderText>
-            <CreateDateBox>
-                <CreateDateText>
-                    (수집일:{createdAt})
-                </CreateDateText>
-            </CreateDateBox>
+            <HeaderText><EllipsisTooltip value={name} /></HeaderText>
             <ContentMask>
                 <ProductTable>
                     <tbody>
@@ -118,9 +103,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                         <TH>카테고리</TH>
                         <TD><EllipsisTooltip value={category} /></TD>
 
-                        <ImgBox rowSpan={5} onClick={handleOpenDetail}>
-                            <MainImage src={hoverColor || image} alt={name} loading="lazy"/>
-                        </ImgBox>
+                        <TdBox rowSpan={5}>
+                            <CreateDateBox>수집일: {createdAt}</CreateDateBox>
+                            <ImgBox onClick={handleOpenDetail}>
+                                <MainImage
+                                    src={hoverColor || image}
+                                    onError={(e) => {e.currentTarget.style.display = "none";}}
+                                />
+                            </ImgBox>
+                        </TdBox>
                     </InfoRow>
 
                     <InfoRow>
@@ -147,29 +138,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                         <TH>아더컬러<br />({colors.length})</TH>
                         <TD colSpan={2}>
                             <ColorRowCell>
-                                {hoveredColorInfo && (
+                                {hoveredColorLabel && (
                                     <ColorTooltip>
-                                        <ColorTooltipInner>
-                                            {hoveredColorInfo.label}
-                                        </ColorTooltipInner>
+                                        <ColorTooltipInner>{hoveredColorLabel}</ColorTooltipInner>
                                     </ColorTooltip>
                                 )}
 
                                 <ColorScrollRow onMouseLeave={handleColorLeave}>
                                     {colors.map((colorItem, index) => {
                                         const src = getColorSrc(colorItem);
+                                        const COLOR_FALLBACK = "/images/noimg.svg";
                                         if (!src) return null;
-
-                                        const label = getColorLabel(colorItem, index);
 
                                         return (
                                             <ColorImg
                                                 key={`${src}_${index}`}
                                                 src={src}
-                                                alt={label}
-                                                onMouseEnter={() =>
-                                                    handleColorEnter(colorItem, index)
-                                                }
+                                                onMouseEnter={() => handleColorEnter(colorItem)}
+                                                onClick={handleOpenDetail}
+                                                onError={(e) => {
+                                                    if (!e.currentTarget.src.includes("noimg.svg")) {
+                                                        e.currentTarget.src = COLOR_FALLBACK;
+                                                    }
+                                                }}
                                             />
                                         );
                                     })}

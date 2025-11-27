@@ -1,45 +1,38 @@
 import styled from "@emotion/styled";
 
+// 카드 전체 컨테이너
 export const CardWrapper = styled.div`
-    max-width: 350px;
+    width: 100%;
     border: 1px solid #ddd;
     border-radius: 6px;
     background: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 `;
 
+// 카드 상단 상품명 영역
 export const HeaderText = styled.div`
     padding: 15px;
-    font-size: 14px;
-    height: 70px;
+    font-size: 15px;
     font-weight: 600;
-    color: rgba(0,0,0,0.88);
+    color: rgba(0, 0, 0, 0.88);
     word-break: break-all;
 `;
 
-export const CreateDateBox = styled.div`
-    position: relative;
-`;
-export const CreateDateText = styled.div`
-    font-size: 11px;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-`;
-
+// 카드 본문 감싸는 마스크(하단 라운딩)
 export const ContentMask = styled.div`
     width: 100%;
-    height: 100%;
     overflow: hidden;
     border-radius: 0 0 6px 6px;
+    position: relative;
 `;
 
+// 상세 정보 테이블 레이아웃
 export const ProductTable = styled.table`
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
     font-size: 14px;
-    border-top: 1px solid #ccc ;
+    border-top: 1px solid #ccc;
 
     tbody tr > *:last-child {
         border-right: none;
@@ -50,18 +43,22 @@ export const ProductTable = styled.table`
     }
 `;
 
+// 일반 정보 행
 export const InfoRow = styled.tr`
   height: 40px;
 `;
 
+// 아더컬러 행
 export const ColorRow = styled.tr`
     height: 60px;
 `;
 
+// 사이즈/소재/혼용률 행
 export const ScrollRow = styled.tr`
     height: 60px;
 `;
 
+// 테이블 헤더 셀
 export const TH = styled.th`
     width: 20%;
     padding: 6px 10px;
@@ -73,6 +70,7 @@ export const TH = styled.th`
     white-space: nowrap;
 `;
 
+// 테이블 데이터 셀
 export const TD = styled.td`
     padding: 6px 10px;
     color: #111827;
@@ -81,36 +79,51 @@ export const TD = styled.td`
     word-break: break-all;
 `;
 
-export const ImgBox = styled.td`
+// 우측 이미지 영역 셀
+export const TdBox = styled.td`
     width: 40%;
-    padding: 8px 0;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
     border-left: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
 `;
 
-export const MainImage = styled.img`
-    max-width: 100%;
-    max-height: 220px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
+// 수집일 텍스트 영역
+export const CreateDateBox = styled.div`
+    width: 100%;
+    font-size: 11px;
+    text-align: right;
+    padding-right: 2px;
 `;
 
+// 메인 이미지 박스(비율 고정)
+export const ImgBox = styled.div`
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    cursor: pointer;
+    background: url("/images/noimg.svg") center/40% no-repeat;
+`;
+
+// 메인 상품 이미지
+export const MainImage = styled.img`
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+`;
+
+// 아더컬러 툴팁/썸네일 래퍼
 export const ColorRowCell = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
 `;
 
+// 아더컬러 썸네일 가로 스크롤 영역
 export const ColorScrollRow = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
   overflow-x: auto;
-  padding: 4px 0;
   scrollbar-width: thin;
 
   &::-webkit-scrollbar {
@@ -127,21 +140,24 @@ export const ColorScrollRow = styled.div`
   }
 `;
 
+// 아더컬러 썸네일 이미지
 export const ColorImg = styled.img`
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
-  object-fit: cover;
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
-  border: 1px solid #ccc;
-  cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    object-fit: cover;
+    background: url("/images/noimg.svg") center/100% no-repeat;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    border: 1px solid #ccc;
+    cursor: pointer;
 
-  &:hover {
-    border: 1px solid #bbb;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  }
+    &:hover {
+        border: 1px solid #aaa;
+        box-shadow: 0 0px 5px #aaa;
+    }
 `;
 
+// 아더컬러 이름 툴팁 컨테이너
 export const ColorTooltip = styled.div`
   position: absolute;
   left: 77%;
@@ -151,6 +167,7 @@ export const ColorTooltip = styled.div`
   pointer-events: none;
 `;
 
+// 아더컬러 이름 툴팁 내용
 export const ColorTooltipInner = styled.div`
   display: inline-flex;
   align-items: center;
@@ -163,6 +180,7 @@ export const ColorTooltipInner = styled.div`
   white-space: nowrap;
 `;
 
+// 사이즈/소재/혼용률 2줄까지만 노출
 export const ScrollBoxY = styled.div`
   max-height: 2.8em;
   overflow-y: auto;

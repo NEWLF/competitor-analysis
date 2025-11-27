@@ -1,1 +1,1 @@
-export * from "./LfBrandPicker";
+export * from "./LFBrandPicker";
