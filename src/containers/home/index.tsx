@@ -12,6 +12,13 @@ import { ProductCard } from "./components/product-card/ProductCard";
 import type { ProductCardProps } from "./components/product-card/ProductCard";
 
 import { useCompetitorProductList } from "./hooks";
+import { useExcelExporter } from "hooks/useExcelExporter";
+import { filterConfig, productTableConfig } from "./constant/excel-definition";
+
+const REPORT = {
+    ID: "912",
+    NAME: "경쟁사 상품 구성 현황 대시보드(26SS~)",
+};
 
 import {
   extractCompetitorList,
@@ -36,6 +43,7 @@ const PAGE_SIZE = 20;
 
 function HomePage() {
   const { data, isLoading, error } = useCompetitorProductList();
+    const { isLoading: isLoadingExcel, download } = useExcelExporter();
   const openChromeModal = useChromeNoticeModal();
 
   // 브라우저/크롬 안내 모달
@@ -55,6 +63,14 @@ function HomePage() {
       hostAddress: window.location.host,
       deptNo: sessionStorage.getItem("userId"),
     });
+  }, []);
+  React.useEffect(() => {
+    log({
+      reportId: REPORT.ID,
+      reportName: REPORT.NAME,
+      hostAddress: window.location.host,
+      deptNo: sessionStorage.getItem("userId"),
+    }).then();
   }, []);
 
   // 원시 데이터 → 카드용 데이터 매핑
@@ -89,11 +105,51 @@ function HomePage() {
     setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, products.length));
   };
 
+    const handleExport = async () => {
+        await download({
+            sheetConfig: [
+                {
+                    sheetName: "시트이름",
+                    config: [
+                        {
+                            type: "nameCard",
+                            orientation: "landscape",
+                            config: filterConfig,
+                            data: {
+                                from: "2025.10",
+                                to: "202511",
+                                brand: "HZ",
+                                compeBrand: "폴로, 타미힐피거",
+                                category: "스웨터",
+                                material: "",
+                                productName: "니트",
+                            },
+                        },
+                        {type: "gap"},
+                        {type: "gap"},
+                        {
+                            type: "table",
+                            orientation: "portrait",
+                            config: productTableConfig,
+                            data: data,
+                        },
+                    ],
+                },
+            ],
+            pageConfig: {
+                fileName: `${REPORT.ID}. ${REPORT.NAME}`,
+            },
+        });
+    };
+
   return (
       <div>
         <Header steps={["9.1 경쟁사 상품분석", "경쟁사 상품 구성 현황 대시보드"]}/>
         <SearchBar />
-        <SearchResultHeader />
+          <SearchResultHeader
+              onClickExportExcel={handleExport}
+              isLoading={isLoadingExcel}
+          />
         <Container>
           <Divider height={1} width="100%" color="rgb(204, 204, 204)" />
 
