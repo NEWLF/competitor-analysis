@@ -8,13 +8,11 @@ import {
 } from "./style";
 import { useEllipsisTooltip } from "../../hooks/useEllipsisTooltip";
 
-const MIN_TOOLTIP_LENGTH = 12;
 const DEFAULT_MAX_WIDTH = 200;
 
 const shouldShowTooltip = (value?: string, isEllipsis?: boolean) => {
     if (!value) return false;
-    if (isEllipsis) return true;
-    return value.length >= MIN_TOOLTIP_LENGTH;
+    return !!isEllipsis;
 };
 
 export interface EllipsisTooltipProps {
