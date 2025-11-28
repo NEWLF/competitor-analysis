@@ -29,7 +29,7 @@ function buildCommonFilterPayload(payload: DashboardFilterPayload) {
     )}`,
     ORG_CODE: payload.조직,
     COMPE_CODE: payload.경쟁사브랜드,
-    CATRGORT: payload.카테고리,
+    CATEGORY: payload.카테고리,
     MATERIAL_NAME: payload.소재,
     PROD_NAME: payload.상품명,
   } as const;
