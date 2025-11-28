@@ -18,7 +18,7 @@ export function SearchResultHeader() {
 				EXCEL DOWN
 			</CustomerButton>
 			<Text size="xxs" color={colors.gray800} center weight="extrabold">
-				Last updated :{" "}
+				Last updated :{"1999-99-99"}
 				{lastUpdateDate?.data?.ANAL_DATE ? format(parse(lastUpdateDate?.data?.ANAL_DATE, "yyyyMMdd", new Date()), "yyyy.MM.dd") : ""}
 			</Text>
 

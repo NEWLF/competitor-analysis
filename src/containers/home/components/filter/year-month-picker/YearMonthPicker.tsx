@@ -7,21 +7,63 @@ import { pressableStyle } from "utils/style";
 import styled from "@emotion/styled";
 import { useState } from "react";
 
-interface Props {
-  value?: { year: number; month: number };
-  onChange: (value: { year: number; month: number }) => void;
+export interface YearMonthValue {
+  year: number;
+  month: number;
 }
 
-export function YearMonthPicker({ value, onChange }: Props) {
-  const [filterYear, setFilterYear] = useState(value.year);
+interface Props {
+  value?: YearMonthValue;
+  onChange: (value: YearMonthValue) => void;
+  minValue?: YearMonthValue;
+  maxValue?: YearMonthValue;
+}
 
-  const day = new Date().getDate();
-  const now_month = new Date().getMonth() + 1;
-  // 1일엔 전월 데이터 출력
-  const today_month =
-    day === 1 ? (now_month - 1 === 0 ? 12 : now_month - 1) : now_month;
+const BASE_MIN_YEAR = 2025;
+const BASE_MIN_MONTH = 10;
+const MOCK_TODAY: YearMonthValue | null = null;
 
-  const today_year = new Date().getFullYear();
+// const MOCK_TODAY: YearMonthValue | null = { year: 2026, month: 5 };
+
+const day = new Date().getDate();
+const nowMonth = new Date().getMonth() + 1;
+const realTodayMonth = day === 1 ? (nowMonth - 1 === 0 ? 12 : nowMonth - 1) : nowMonth;
+const realTodayYear = new Date().getFullYear();
+
+const todayMonth = MOCK_TODAY?.month ?? realTodayMonth;
+const todayYear = MOCK_TODAY?.year ?? realTodayYear;
+
+function isBefore(a: YearMonthValue, b: YearMonthValue) {
+  return a.year < b.year || (a.year === b.year && a.month < b.month);
+}
+
+function isAfter(a: YearMonthValue, b: YearMonthValue) {
+  return a.year > b.year || (a.year === b.year && a.month > b.month);
+}
+
+export function YearMonthPicker({ value, onChange, minValue, maxValue }: Props) {
+  const initialYear = value?.year ?? todayYear;
+  const [filterYear, setFilterYear] = useState(initialYear);
+
+  const globalMin: YearMonthValue = {
+    year: BASE_MIN_YEAR,
+    month: BASE_MIN_MONTH,
+  };
+
+  const effectiveMin: YearMonthValue = (() => {
+    if (!minValue) return globalMin;
+    return isBefore(minValue, globalMin) ? globalMin : minValue;
+  })();
+
+  const globalMax: YearMonthValue = {
+    year: todayYear,
+    month: todayMonth,
+  };
+
+  const effectiveMax: YearMonthValue = (() => {
+    if (!maxValue) return globalMax;
+    return isAfter(maxValue, globalMax) ? globalMax : maxValue;
+  })();
 
   const prevHandler = () => {
     setFilterYear((prev) => prev - 1);
@@ -31,62 +73,66 @@ export function YearMonthPicker({ value, onChange }: Props) {
     setFilterYear((prev) => prev + 1);
   };
 
-  const isActiveStart = (month) => {
-    const GPT_PRODUCT_START_YEAR = 2024;
-    const GPT_PRODUCT_START_MONTH = 8;
-    return (
-      filterYear === GPT_PRODUCT_START_YEAR && month < GPT_PRODUCT_START_MONTH
-    );
+  const disabledByMin = (month: number) => {
+    const current: YearMonthValue = { year: filterYear, month };
+    return isBefore(current, effectiveMin);
   };
 
-  const isNonActiveStart = (month) => {
-    return (
-      filterYear > today_year ||
-      (filterYear === today_year && month > today_month)
-    );
+  const disabledByMax = (month: number) => {
+    const current: YearMonthValue = { year: filterYear, month };
+    return isAfter(current, effectiveMax);
   };
 
-  const isActive = (month) => {
-    return month === value.month && value.year === filterYear;
+  const isDisabled = (month: number) => {
+    return disabledByMin(month) || disabledByMax(month);
+  };
+
+  const isActive = (month: number) => {
+    if (!value) return false;
+    return value.year === filterYear && value.month === month;
   };
 
   return (
-    <Container>
-      <Header>
-        <PrevButton isVisible={filterYear > 2024} onClick={prevHandler} />
-        <Text weight="bold" color={colors.white} style={{ flex: 1 }} center>
-          {filterYear}
-        </Text>
-        <NextButton onClick={nextHandler} />
-      </Header>
-      <MonthGrid>
-        {range(1, 13).map((month) => (
-          <DateButton
-            key={month}
-            onClick={() => {
-              if (isActiveStart(month)) return;
-              if (isNonActiveStart(month)) return;
-              onChange({ year: filterYear, month: month });
-            }}
-            active={isActive(month)}
-          >
-            <Text
-              color={
-                isActive(month)
-                  ? colors.white
-                  : isActiveStart(month) || isNonActiveStart(month)
-                  ? colors.gray300
-                  : colors.gray900
-              }
-              size="xs"
-              weight={isActive(month) ? "semibold" : "regular"}
-            >
-              {month}월
-            </Text>
-          </DateButton>
-        ))}
-      </MonthGrid>
-    </Container>
+      <Container>
+        <Header>
+          <PrevButton isVisible={filterYear > effectiveMin.year} onClick={prevHandler}/>
+          <Text weight="bold" color={colors.white} style={{ flex: 1 }} center>
+            {filterYear}
+          </Text>
+          <NextButton
+              onClick={nextHandler}
+              style={{visibility: filterYear < effectiveMax.year ? "visible" : "hidden",}}
+          />
+        </Header>
+
+        <MonthGrid>
+          {range(1, 13).map((month) => {
+            const disabled = isDisabled(month);
+            const active = isActive(month);
+
+            return (
+                <DateButton
+                    key={month}
+                    type="button"
+                    active={active}
+                    disabled={disabled}
+                    onClick={() => {
+                      if (disabled) return;
+                      onChange({ year: filterYear, month });
+                    }}
+                >
+                  <Text
+                      color={active ? colors.white : disabled ? colors.gray300 : colors.gray900}
+                      size="xs"
+                      weight={active ? "semibold" : "regular"}
+                  >
+                    {month}월
+                  </Text>
+                </DateButton>
+            );
+          })}
+        </MonthGrid>
+      </Container>
   );
 }
 

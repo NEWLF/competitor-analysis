@@ -118,20 +118,20 @@ function HomePage() {
                       salePrice={89000}
                       createdAt="2025-11-27"
                       colors={[
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "BLACK" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "GRAY" },
-                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "WHITE" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#FF0000" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#DC143C" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#B22222" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#A52A2A" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#A0522D" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#CD5C5C" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#BC8F8F" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#F08080" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#FA8072" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#E9967A" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#FF7F50" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#FF6347" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#F4A460" },
+                        { src: "https://img.ssfshop.com/cmd/RB_100x133/sps://5/10/31/GM0025103183246_0_THNAIL_ORGINL_20251105114507780.jpg", label: "#FFA07A" },
                       ]}
                       sizes="XS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXLXS / S / M / L / XL / XXL"
                       material="겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%겉감: 면 100% / 배색: 폴리에스터 100%"

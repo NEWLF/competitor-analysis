@@ -1,13 +1,11 @@
-import { colors } from "@boxfoxs/bds-common";
-import { Flex, Spacing, Text, useCheckIsMobile } from "@boxfoxs/bds-web";
-import styled from "@emotion/styled";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useDetailOrgs } from "hooks/useDetailOrgs";
 import React from "react";
+import styled from "@emotion/styled";
+import { colors } from "@boxfoxs/bds-common";
 import { pressableStyle } from "utils/style";
 import { useFilter, useTmpFilter } from "../../hooks";
-import { YearMonthPicker } from "../filter";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { CompetitorBrandPicker } from "../filter/competitorBrand";
+import { Flex, Spacing, Text, useCheckIsMobile } from "@boxfoxs/bds-web";
 
 import {
   getCountLabel,
@@ -16,12 +14,13 @@ import {
   get조직Label,
   get경쟁사브랜드Label,
 } from "../filter/modal/FilterResultSection";
+import { PickerItem } from "./PickerItem";
+import { FilterField } from "./FilterField";
 import { useFilterModal } from "../filter/modal/useFilterModal";
 import { LFBrandPicker } from "../filter/lfBrand/LFBrandPicker";
-import { FilterField } from "./FilterField";
-import { PickerItem } from "./PickerItem";
-import { useCompetitorBrands } from "../../hooks/useCompetitorBrands";
 import { useLFBrands } from "@/containers/home/hooks/useLFBrands";
+import {YearMonthPicker} from "@/containers/home/components/filter";
+import { useCompetitorBrands } from "../../hooks/useCompetitorBrands";
 
 export function SearchBar() {
   const [, setFilter] = useFilter();
@@ -42,14 +41,30 @@ export function SearchBar() {
     >
       <PickerItem label={`From : ${get시작년월Label(filter)}`}>
         <YearMonthPicker
-          value={filter.시작년월}
-          onChange={(시작년월) => put({ 시작년월 })}
+            value={filter.시작년월}
+            onChange={(시작년월) => {
+              const currentTo = filter.종료년월;
+              if (currentTo) {
+                const toIsBefore =
+                    currentTo.year < 시작년월.year ||
+                    (currentTo.year === 시작년월.year &&
+                        currentTo.month < 시작년월.month);
+
+                if (toIsBefore) {
+                  put({ 시작년월, 종료년월: 시작년월 });
+                  return;
+                }
+              }
+
+              put({ 시작년월 });
+            }}
         />
       </PickerItem>
       <PickerItem label={`To : ${get종료년월Label(filter)}`}>
         <YearMonthPicker
-          value={filter.종료년월}
-          onChange={(종료년월) => put({ 종료년월 })}
+            value={filter.종료년월}
+            minValue={filter.시작년월}
+            onChange={(종료년월) => put({ 종료년월 })}
         />
       </PickerItem>
       {!isMobile && (
