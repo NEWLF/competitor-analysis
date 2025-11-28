@@ -105,42 +105,42 @@ function HomePage() {
     setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, products.length));
   };
 
-    const handleExport = async () => {
-        await download({
-            sheetConfig: [
-                {
-                    sheetName: "시트이름",
-                    config: [
-                        {
-                            type: "nameCard",
-                            orientation: "landscape",
-                            config: filterConfig,
-                            data: {
-                                from: "2025.10",
-                                to: "202511",
-                                brand: "HZ",
-                                compeBrand: "폴로, 타미힐피거",
-                                category: "스웨터",
-                                material: "",
-                                productName: "니트",
-                            },
-                        },
-                        {type: "gap"},
-                        {type: "gap"},
-                        {
-                            type: "table",
-                            orientation: "portrait",
-                            config: productTableConfig,
-                            data: data,
-                        },
-                    ],
-                },
-            ],
-            pageConfig: {
-                fileName: `${REPORT.ID}. ${REPORT.NAME}`,
+  const handleExport = async () => {
+    await download({
+      sheetConfig: [
+        {
+          sheetName: "경쟁사 상품",
+          config: [
+            {
+              type: "nameCard",
+              orientation: "landscape",
+              config: filterConfig,
+              data: {
+                from: "2025.10",
+                to: "202511",
+                brand: "HZ",
+                compeBrand: "폴로, 타미힐피거",
+                category: "스웨터",
+                material: "",
+                productName: "니트",
+              },
             },
-        });
-    };
+            { type: "gap" },
+            { type: "gap" },
+            {
+              type: "table",
+              orientation: "portrait",
+              config: productTableConfig,
+              data: data,
+            },
+          ],
+        },
+      ],
+      pageConfig: {
+        fileName: `${REPORT.ID}. ${REPORT.NAME}`,
+      },
+    });
+  };
 
   return (
       <div>
