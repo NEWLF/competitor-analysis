@@ -2,8 +2,13 @@ import styled from "@emotion/styled";
 
 export const TooltipWrapper = styled.div`
     position: relative;
-    display: inline-block;
+    //display: inline-block;
     max-width: 100%;
+    
+    &:hover [data-tooltip-content="true"] {
+        opacity: 1;
+        pointer-events: auto;
+    }
 `;
 
 // 한 줄 말줄임용
